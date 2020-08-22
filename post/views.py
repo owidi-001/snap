@@ -1,0 +1,58 @@
+from django.shortcuts import render
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
+from .models import Post
+# from accounts.models import profile
+from django.urls import reverse_lazy
+
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'post/post.html'
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'post/Post_detail.html'
+    # success_url = reverse_lazy('post')
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    template_name = 'post/Post_form.html'
+    fields = ['title','subtitle','upload', 'caption']
+    success_url = reverse_lazy('post')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+    model = Post
+    fields = ['title','subtitle','upload', 'caption']
+    success_url = reverse_lazy('post')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post=self.get_object()
+        if self.request.user==post.user:
+            return True
+        return False
+
+
+class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+    model = Post
+    success_url = reverse_lazy('post')
+    # success_url='post'
+
+    def test_func(self):
+        post=self.get_object()
+        if self.request.user==post.user:
+            return True
+        return False
+
+
