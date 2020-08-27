@@ -8,7 +8,7 @@
         <div class="card">
             <h2><a href="{% url 'detail' post.id %}" class="link">{{ post.title }}</a></h2>
             <h5>Posted by {{ post.user}} <span class="text-muted">on, {{post.date_posted}}</span></h5>
-            <div class="upload img-fluid"><img src="{{object.image.url}}"
+            <div class="upload img-fluid"><img class="img-fluid" src="{{object.image.url}}"
                    ></div>
             <p>{{ post.subtitle}}</p>
             <p>{{ post.caption }}.</p>
@@ -19,14 +19,14 @@
     <div class="rightcolumn">
         <div class="card">
             <h2>About Me</h2>
-            <div class="fakeimg" style="height:100px;">Image</div>
-            <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+            <div class="dummy" style="height:100px;"><img class="img-fluid" src="{%static '../media/one.jpg'%}" alt=""></div>
+            <p class="text-white p-2">Some text about me in culpa qui officia deserunt mollit anim..</p>
         </div>
         <div class="card">
             <h3>Popular Post</h3>
-            <div class="fakeimg">Image</div><br>
-            <div class="fakeimg">Image</div><br>
-            <div class="fakeimg">Image</div>
+            <div class="dummy"><img class="img-fluid" src="{%static '../media/one.jpg'%}" alt=""></div><br>
+            <div class="dummy"><img class="img-fluid" src="{%static '../media/two.png'%}" alt=""></div><br>
+            <div class="dummy"><img class="img-fluid" src="{%static '../media/one.jpg'%}" alt=""></div>
         </div>
         <div class="card">
             <h3>Follow Me</h3>

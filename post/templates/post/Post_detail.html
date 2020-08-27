@@ -10,8 +10,10 @@
             <p>{{ object.subtitle}}</p>
             <p>{{ object.caption }}.</p>
             {% if object.user == user %}
-                <a href="{% url 'update' object.id%}" class="btn btn-outline-info mt-1 mb-1">Update</a>
+                <div class="form_action_btns">
+                    <a href="{% url 'update' object.id%}" class="btn btn-outline-info mt-1 mb-1">Update</a>
                 <a href="{% url 'delete' object.id%}" class="btn btn-outline-danger mt-1 mb-1">Delete</a>
+                </div>
             {% endif %}
         </div>
     </div>
