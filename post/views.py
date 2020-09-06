@@ -5,6 +5,8 @@ from django.views.generic import ListView,DetailView,CreateView,UpdateView,Delet
 from .models import Post
 # from accounts.models import profile
 from django.urls import reverse_lazy
+# search bar
+from django.db.models import Q
 
 
 class PostListView(ListView):
@@ -55,4 +57,15 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
             return True
         return False
 
+# search filters
 
+class SearchResultsView(ListView):
+    model = Post
+    template_name = 'search_results.html'
+
+    def get_queryset(self): # new
+        query = self.request.GET.get('q')
+        object_list = Post.objects.filter(
+            Q(name__icontains=query) | Q(state__icontains=query)
+        )
+        return object_list

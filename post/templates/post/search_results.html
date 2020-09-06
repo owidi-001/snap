@@ -10,10 +10,10 @@
   </span>
   </div>
 </form>
-{% for post in posts %}
+{% for post in object_list %}
         <!-- Blog Post -->
         <div class="card mb-4">
-          <img class="card-img-top" src="{{post.upload.url}}" alt="Post image loading...">
+          <img class="card-img-top" src="{{object.image.url}}" alt="Post image loading...">
           <div class="card-body">
             <h2 class="card-title">{{ post.title }}</h2>
             <h5>{{ post.subtitle}}</h5>

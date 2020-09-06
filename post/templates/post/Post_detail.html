@@ -2,39 +2,87 @@
 {% load static %}
 {% block content %}
 <div class="row">
-    <div class="leftcolumn">
-        <div class="card">
-            <h2>{{ object.title }}</h2>
-            <h5>Posted by {{ object.user}} <span class="text-muted">on, {{object.date_posted}}</span></h5>
-            <div class="fakeimg" style="height:200px;">image</div>
-            <p>{{ object.subtitle}}</p>
-            <p>{{ object.caption }}.</p>
-            {% if object.user == user %}
-                <div class="form_action_btns">
-                    <a href="{% url 'update' object.id%}" class="btn btn-outline-info mt-1 mb-1">Update</a>
-                <a href="{% url 'delete' object.id%}" class="btn btn-outline-danger mt-1 mb-1">Delete</a>
-                </div>
-            {% endif %}
+      <!-- Post Content Column -->
+      <div class="col-lg-12">
+
+        <!-- Title -->
+        <h1 class="mt-4">{{ object.title }}</h1>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="#">{{ object.user}}</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Posted on {{object.date_posted}}</p>
+
+        <hr>
+
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="{{ object.upload.url }}" alt="">
+
+        <hr>
+
+        <!-- Post Content -->
+        <p class="lead">{{ object.subtitle}}</p>
+
+        <p>{{ object.caption }}</p>
+
+        <hr>
+
+        <!-- Comments Form -->
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
         </div>
+
+        <!-- Single Comment -->
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0">Commenter Name</h5>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+          </div>
+        </div>
+
+        <!-- Comment with nested comments -->
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0">Commenter Name</h5>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+            <div class="media mt-4">
+              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+              <div class="media-body">
+                <h5 class="mt-0">Commenter Name</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </div>
+
+            <div class="media mt-4">
+              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+              <div class="media-body">
+                <h5 class="mt-0">Commenter Name</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="rightcolumn">
-        <div class="card">
-            <h2>About Me</h2>
-            <div class="fakeimg" style="height:100px;">Image</div>
-            <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-        </div>
-        <div class="card">
-            <h3>Popular Post</h3>
-            <div class="fakeimg">Image</div><br>
-            <div class="fakeimg">Image</div><br>
-            <div class="fakeimg">Image</div>
-        </div>
-        <div class="card">
-            <h3>Follow Me</h3>
-            <p>Some text..</p>
-        </div>
-    </div>
-</div>
 
 
 {% endblock content %}
