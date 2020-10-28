@@ -1,31 +1,39 @@
-{% extends 'post/base.html' %}
-{% load static %}
-{% load crispy_forms_tags%}
-
-{% block content %}
-     <div class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card card-signin my-5">
-          <div class="card-body">
-            <h5 class="card-title text-center">Sign In</h5>
-            <form class="form-signin" action="#" method="post">
-              {% csrf_token %}
-            <fieldset class="form-group"> 
-                <legend>login today</legend>
-                {{form | crispy}}
-            </fieldset>
-              <hr class="my-4">
-
-              <div class="custom-control custom-checkbox mb-3">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">Remember password</label>
-              </div>
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign Up</button>
-            </form>
-          </div>
-        </div>
+{% extends 'post/base.html' %} {% load static %} 
+{% load crispy_forms_tags%} 
+{%block content %}
+<div id="auth">
+  <div class="wrapper">
+    <form action="#" method="post">
+        {% csrf_token %}
+      <h3>Sign Up</h3>
+      <div class="form-group">
+          <label for="name">Username</label>
+          <br>
+          {{form.username}}
       </div>
-    </div>
+      <div class="form-group">
+          <label for="email">Email</label>
+          <br>
+          {{form.email}}
+      </div>
+      <div class="form-group">
+          <label for="Password">Password</label>
+          <br>
+          {{form.password1}}
+      </div>
+      <div class="form-group">
+          <label for="Password1">Password cornfirmation</label>
+          <br>
+          {{form.password2}}
+      </div>
+      <br>
+  
+      <div class="form-group">
+          <input type="checkbox" name="remember" id="remember">
+          <label for="check">Keep me signed</label>
+      </div>
+      <button class="form-control">submit</button>
+  </form>
   </div>
+</div>
 {% endblock content %}

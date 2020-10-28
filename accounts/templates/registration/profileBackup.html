@@ -1,0 +1,31 @@
+{% extends 'post/base.html' %}
+{% load static %}
+{% load crispy_forms_tags%}
+
+{% block content %}
+<div class="content-section">
+    <div class="media">
+        <legend>Your profile</legend>
+        <img src="{{user.profile.image.url}}" class="rounded-circle account-img" alt="">
+        <div class="media-body">
+            <h2 class="account-heading">{{user.username}}</h2>
+            <small class="text-secondary">{{user.email}}</small>
+            <p class="flow-text">{{user.profile.bio}}</p>
+        </div>
+    </div>
+
+    <form action="#" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {% comment %} {{form | crispy}} {% endcomment %}
+            {{u_form | crispy}}
+            {{p_form | crispy}}
+        </fieldset>
+        <div class="form_group">
+            <button type="submit" class="btn btn-outline-warning">update</button>
+        </div>
+
+    </form>
+
+</div>
+{% endblock content %}

@@ -3,29 +3,28 @@
 {% load crispy_forms_tags%}
 
 {% block content %}
-<div class="content-section">
-    <div class="media">
-        <legend>Your profile</legend>
-        <img src="{{user.profile.image.url}}" class="rounded-circle account-img" alt="">
-        <div class="media-body">
-            <h2 class="account-heading">{{user.username}}</h2>
-            <small class="text-secondary">{{user.email}}</small>
-            <p class="flow-text">{{user.profile.bio}}</p>
+<div class="container">
+    <div class="row" style="padding: 2rem 0 2rem 0;">
+        <div class="col">
+            <span>{{user.username}}</span>
+            <br>
+            <span>{{user.email}}</span>
+        </div>
+        <div class="col">
+            <img class="img-responsive" src="{{user.profile.image.url}}"
+                style="width: 50px;height: 50px; border-radius: 50%;" alt="">
         </div>
     </div>
 
-    <form action="#" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            {% comment %} {{form | crispy}} {% endcomment %}
-            {{u_form | crispy}}
-            {{p_form | crispy}}
-        </fieldset>
-        <div class="form_group">
-            <button type="submit" class="btn btn-outline-warning">update</button>
-        </div>
+    <hr>
 
-    </form>
 
-</div>
-{% endblock content %}
+    <h1 class="mb-3">Posts by {{ view.kwargs.username }} <b>|</b> ({{ page_obj.paginator.count }}) Posts</h1>
+    {% for post in posts %}
+    <!-- Posts preview -->
+    <div class="preview">
+        <img class="img-responsive" src="{{post.upload.url}}" alt="Post image loading...">
+    </div>
+    {% endfor %}
+
+    {% endblock content %}

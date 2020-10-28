@@ -1,22 +1,35 @@
-{% extends 'post/base.html' %}
-{% load static %}
-{% load crispy_forms_tags%}
-
-{% block content %}
-    <div class="content-section">
-        <form action="#" method="post">
-            {% csrf_token %}
-            <fieldset class="form-group"> 
-                <legend>Join today</legend>
-                {{form | crispy}}
-            </fieldset>
-            <div class="form_group">
-                <button type="submit" class="btn btn-outline-warning">Sign up</button>
-            </div>
-
-        </form>
-        <div class="border-top pt3">
-            <small class="text-muted">Already have an account? <a href="{% url 'login'%}" class="link">Sign in</a></small>
-        </div>
-    </div>
+{% extends 'post/base.html' %} {% load static %} {% load crispy_forms_tags%} 
+{%block content %}
+<div id="auth">
+  <form action="#" method="post">
+    {% csrf_token %}
+      <legend>Sign Up</legend>
+      <div class="form-group">
+          <label for="name">Username</label>
+          {{form.username}}
+      </div>
+      <div class="form-group">
+          <label for="email">Email</label>
+          {{form.email}}
+            <small id="emailHelp" class="form-text text-muted"
+              >We'll never share your email with anyone else.</small
+            >
+      </div>
+      <div class="form-group">
+          <label for="Password">Password</label>
+          {{form.password1}}
+      </div>
+      <div class="form-group">
+          <label for="Password1">Password cornfirmation</label>
+          {{form.password2}}
+      </div>
+      <!-- <br> -->
+      <hr>
+      <div class="form-group">
+          <input type="checkbox" name="remember" id="remember">
+          <label for="check">Keep me signed</label>
+      </div>
+      <button class="form-control">submit</button>
+  </form>
+</div>
 {% endblock content %}

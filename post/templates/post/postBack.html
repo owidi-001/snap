@@ -1,0 +1,64 @@
+{% extends 'post/base.html' %}
+{% load static %}
+{% block content %}
+
+{% for post in posts %}
+<!-- Blog Post -->
+<div class="mb-4 pt-2">
+  <img class="img-top img-fluid" src="{{post.upload.url}}" alt="Post image loading...">
+  <div class="body pt-3 pb-3 row">
+    <!-- subtitle and title -->
+    <div class="texts col">
+      <h1 class="title">{{ post.title }}</h1>
+      <h4 style="font-family: 'Segoe UI'; font-size: 18px; color: #3a3939;">{{ post.subtitle}}</h4>
+    </div>
+    <!-- image and profile info -->
+    <div class="col pt-2" style="text-align: center; ">
+      <a href="{% url 'user-posts' post.user.username%}"><img src="{{post.user.profile.image.url}}"
+          class="circle img-fluid" alt="Photo of {{ post.user}}"
+          style="border-radius: 50%;height: 50px;width: 50px;" /></a> <br>
+      <a href="{% url 'user-posts' post.user.username%}" style="text-transform: capitalize; color: #3a3939;"><b>{{ post.user}}</b></a>
+    </div>
+  </div>
+  <hr>
+  <div class="card-footer m-auto text-muted row">
+    <div class="col">
+      <a href="{% url 'detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
+    </div>
+    <div class="col">
+      <small>
+        <b>Posted on {{post.date_posted}}</b>
+      </small>
+    </div>
+    <div class="col">
+      <a href="{% url 'detail' post.id %}" class="btn-primary">Read &rarr;</a>
+    </div>
+
+  </div>
+
+</div>
+{% endfor %}
+
+<!-- Pagination -->
+{% if is_paginated %}
+
+{% if page_obj.has_previous %}
+<a class="btn btn-outline-primary mb-4" href="?page=1">First</a>
+<a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+{% endif %}
+
+{% for num in page_obj.paginator.page_range %}
+{% if page_obj.number == num %}
+<a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+<a class="btn btn-outline-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+{% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %}
+<a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+<a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+{% endif %}
+
+{% endif %}
+{% endblock content %}

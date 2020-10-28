@@ -2,51 +2,72 @@
 {% load static %}
 {% block content %}
 
-<form action="{% url 'search_results' %}" method="get">
-  <div class="input-group pt-3 pb-2">
-    <input name="q" type="search" class="form-control" placeholder="Search...">
-  <span class="input-group-append">
-    <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-  </span>
-  </div>
-</form>
-{% for post in posts %}
-        <!-- Blog Post -->
-        <div class="card mb-4">
-          <img class="card-img-top" src="{{post.upload.url}}" alt="Post image loading...">
-          <div class="card-body">
-            <h2 class="card-title">{{ post.title }}</h2>
-            <h5>{{ post.subtitle}}</h5>
-            <p class="card-text">{{ post.caption }}</p>
-            <a href="{% url 'detail' post.id %}" class="btn btn-primary">Read More &rarr;</a>
+<div class="main">
+  <!-- main posts -->
+  <div class="major">
+    {% for post in posts %}
+    <!-- Blog Post -->
+    <div class="post">
+      <div class="header row">
+        <!--title -->
+        <div class="post-title">
+         <a href="{% url 'detail' post.id %}"> <h1 class="title">{{ post.title }}</h1></a>
+        </div>
+        <!-- image and profile info -->
+        <div class="row right">
+          <div class="col">
+            <a href="{% url 'user-posts' post.user.username%}"
+              style="text-transform: capitalize; color: #3a3939;"><b>{{ post.user}}</b></a>
+            <br>
+            <small disabled>
+              <b>Posted on {{post.date_posted}}</b>
+            </small>
           </div>
-          <div class="card-footer text-muted">
-            Posted on {{post.date_posted}} by
-            <a href="{% url 'user-posts' post.user.username%}">{{ post.user}}</a>
+          <div class="col">
+            <a href="{% url 'user-posts' post.user.username%}"><img src="{{post.user.profile.image.url}}"
+                class="circle img-fluid" alt="Photo of {{ post.user}}"
+                style="border-radius: 50%;height: 50px;width: 50px;" /></a>
           </div>
         </div>
-{% endfor %}
+      </div>
+      <!-- image -->
+      <img class="post-image" src="{{post.upload.url}}" alt="Post image loading...">
+      <!-- body -->
+      <div class="body">
+        <!-- subtitle and title -->
+        <a href="{% url 'detail' post.id %}"><h4 style="font-family: 'Segoe UI'; font-size: 18px; color: #3a3939;">{{ post.subtitle}}</h4></a>
 
-<!-- Pagination -->
-{% if is_paginated %}
+        <p>{{ post.caption }}</p>
+      </div>
+      <hr>
+      <!-- footer -->
+      <div class="footer row">
+        <div class="col">
+          <a href="{% url 'detail' pk=post.pk %}"><i class="fa fa-telegram"></i> {{ post.approved_comments.count }}</a>
+        </div>
+        <div class="col">
+          <small>
+            <a href="#"><i class="fa fa-chevron-up" title="up-vote"></i></a>
+          </small>
+        </div>
+      </div>
 
-{% if page_obj.has_previous %}
-  <a class="btn btn-outline-primary mb-4" href="?page=1">First</a>
-  <a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-{% endif %}
+    </div> <br> <br>
+    {% endfor %}
+  </div>
 
-{% for num in page_obj.paginator.page_range %}
-  {% if page_obj.number == num %}
-    <a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
-  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-    <a class="btn btn-outline-primary mb-4" href="?page={{ num }}">{{ num }}</a>
-  {% endif %}
-{% endfor %}
+  <!-- side content -->
+  <div class="post preview">
+    <h1>Most upvoted snaps</h1>
+    {% for post in posts %}
+    <!-- Blog Post -->
+    <div class="wrap">
+      <a href="{% url 'detail' post.id %}">
+        <img class="img-top img-fluid" src="{{post.upload.url}}" alt="Post image loading...">
+      </a>
+    </div><br>
+    {% endfor %}
+  </div>
+</div>
 
-{% if page_obj.has_next %}
-  <a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-  <a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-{% endif %}
-
-{% endif %}
 {% endblock content %}

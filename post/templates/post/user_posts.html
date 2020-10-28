@@ -2,30 +2,48 @@
 {% load static %}
 {% block content %}
 
-<form action="{% url 'search_results' %}" method="get">
-  <div class="input-group pt-3 pb-2">
-    <input name="q" type="search" class="form-control" placeholder="Search...">
-  <span class="input-group-append">
-    <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-  </span>
+
+<div class="row" style="padding: 2rem 0 2rem 0;">
+  <div class="col">
+      <span>Posts by {{ view.kwargs.username }}</span>
+      <br>
+      <span>({{ page_obj.paginator.count }}) posts</span>
   </div>
-</form>
-<h1 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+  <div class="col">
+      <img class="img-responsive" src="{{user.profile.image.url}}"
+          style="width: 50px;height: 50px; border-radius: 50%;" alt="">
+  </div>
+</div>
+<hr>
 {% for post in posts %}
-        <!-- Blog Post -->
-        <div class="card mb-4">
-          <img class="card-img-top" src="{{post.upload.url}}" alt="Post image loading...">
-          <div class="card-body">
-            <h2 class="card-title">{{ post.title }}</h2>
-            <h5>{{ post.subtitle}}</h5>
-            <p class="card-text">{{ post.caption }}</p>
-            <a href="{% url 'detail' post.id %}" class="btn btn-primary">Read More &rarr;</a>
-          </div>
-          <div class="card-footer text-muted">
-            Posted on {{post.date_posted}} by
-            <a href="{% url 'user-posts' post.user.username%}">{{ post.user}}</a> 
-          </div>
-        </div>
+       <!-- Blog Post -->
+<div class="mb-4 pt-2">
+  <img class="img-top img-fluid" src="{{post.upload.url}}" alt="Post image loading...">
+  <div class="body pt-3 pb-3 row">
+    <!-- subtitle and title -->
+    <div class="texts col">
+      <h1 class="title">{{ post.title }}</h1>
+      <h4 style="font-family: 'Segoe UI'; font-size: 18px; color: #3a3939;">{{ post.subtitle}}</h4>
+    </div>
+
+  </div>
+  <hr>
+  <div class="card-footer m-auto text-muted row">
+    <div class="col">
+      <a href="{% url 'detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
+    </div>
+    <div class="col">
+      <small>
+        <b>Posted on {{post.date_posted}}</b>
+      </small>
+    </div>
+    <div class="col">
+      <a href="{% url 'detail' post.id %}" class="primary" style="">Read &rarr;</a>
+    </div>
+
+  </div>
+
+</div>
 {% endfor %}
 
 <!-- Pagination -->

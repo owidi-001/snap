@@ -11,3 +11,4 @@ class CreatePostForm(forms.ModelForm):
             "upload",
             "content",
         ]
+
