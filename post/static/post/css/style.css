@@ -123,6 +123,15 @@ footer{
 }
 
 
+/* profile */
+.post-summary{
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 2rem;
+}
+/* end of profile */
+
 /* media queries */
 @media (max-width: 567px) {
   nav div {
@@ -140,12 +149,18 @@ footer{
   /* main */
   .main{
     display: block;
-    padding:0.2rem;
+    padding:0rem;
   }
-
+  /* post */
+  div.post{
+    padding: 0rem;
+  }
+  div.post .body, div.post .footer{
+    padding:0.5rem;
+  }
   /* detail */
   .detail{
-    padding: 0.2rem;
+    padding: 0rem;
   }
   .preview{
     display: none;

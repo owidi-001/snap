@@ -17,10 +17,10 @@
         <div class="row right">
           <div class="col">
             <a href="{% url 'user-posts' post.user.username%}"
-              style="text-transform: capitalize; color: #3a3939;"><b>{{ post.user}}</b></a>
+              style="text-transform: capitalize; color: #3a3939;"><b>By: {{ post.user}}</b></a>
             <br>
             <small disabled>
-              <b>Posted on {{post.date_posted}}</b>
+              <b>On :{{post.date_posted}}</b>
             </small>
           </div>
           <div class="col">
