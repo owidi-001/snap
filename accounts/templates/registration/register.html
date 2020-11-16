@@ -1,39 +1,34 @@
-{% extends 'post/base.html' %} {% load static %} 
-{% load crispy_forms_tags%} 
-{%block content %}
-<div id="auth">
-  <div class="wrapper">
-    <form action="#" method="post">
+{% extends 'post/base.html' %}
+{% load static %}
+{% load crispy_forms_tags%}
+
+{% block content %}
+<div >
+    <form class="auth-form">
         {% csrf_token %}
-      <h3>Sign Up</h3>
-      <div class="form-group">
-          <label for="name">Username</label>
-          <br>
-          {{form.username}}
-      </div>
-      <div class="form-group">
-          <label for="email">Email</label>
-          <br>
-          {{form.email}}
-      </div>
-      <div class="form-group">
-          <label for="Password">Password</label>
-          <br>
-          {{form.password1}}
-      </div>
-      <div class="form-group">
-          <label for="Password1">Password cornfirmation</label>
-          <br>
-          {{form.password2}}
-      </div>
-      <br>
-  
-      <div class="form-group">
-          <input type="checkbox" name="remember" id="remember">
-          <label for="check">Keep me signed</label>
-      </div>
-      <button class="form-control">submit</button>
-  </form>
-  </div>
+        <ul>
+            <li>
+                <input type="text" name="field1" class="field-style field-split align-left" placeholder="Username" />
+            </li>
+            <li>
+                <input type="email" name="field2" class="field-style field-split align-right" placeholder="Email" />
+            </li>
+            <li>
+                <input type="password" name="field3" class="field-style field-split align-left" placeholder="Password" />
+    
+            </li>
+            <li>
+                <input type="password" name="field3" class="field-style field-split align-left"
+                    placeholder="Password confirmation" />
+            </li>
+            <li>
+                <input type="checkbox" name="check" id="check" placeholder="Remember me">
+                <label for="check">Remember me</label>
+            </li>
+            <li>
+                <input type="submit" value="Sign Up" />
+            </li>
+        </ul>
+    </form>
 </div>
 {% endblock content %}
