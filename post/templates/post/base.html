@@ -14,7 +14,8 @@
   {% comment %} fontawesome icons {% endcomment %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  {% comment %} css {% endcomment %}
+ <!-- bootstrap css -->
+ <link rel="stylesheet" href="{% static 'post/css/bootstrap.min.css'%}">
   <!-- local css -->
   <link rel="stylesheet" href="{% static 'post/css/style.css'%}">
 
@@ -23,46 +24,49 @@
 
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="container">
-      <a href="{% url 'post'%}" class="nav-brand"> iSnap </a>
-      <button class="menu"><i class="fa fa-bars"></i></button>
-      <form action="#" method="post">
-        <input type="search" name="search" placeholder="  Search" style="background:rgba(221, 221, 221, 0.76);" id="">
-      </form>
-      <div class="navbar-nav">
-        <ul class="nav_list">
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a href="{% url 'create'%}" class="nav-link">New</a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'profile'%}" class="nav-link">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'logout'%}" class="nav-link">Exit</a>
-          </li>
-
-          {% else %}
-          <li class="nav-item">
-            <a href="{% url 'register'%}" class="nav-link">Sign Up</a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'login'%}" class="nav-link">Sign In</a>
-          </li>
-
-          {% endif %}
-        </ul>
+<!-- ======= Top Bar ======= -->
+  <div id="topbar" class="d-none d-lg-flex align-items-center sticky-top">
+    <div class="container d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <i class="fa fa-clock"></i> iSnap something to be figured out
+      </div>
+      <div class="d-flex align-items-center">
+        <i class="fa fa-phone"></i>some other time
       </div>
     </div>
-  </nav>
+  </div>
 
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
 
+      <h1 class="logo mr-auto"><a href="{% url 'post'%}" class="nav-brand"> iSnap </a></h1>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          {% if user.is_authenticated %}
+          <li class="active"><a href="{% url 'post'%}">Home</a></li>
+          <li><a href="{% url 'create'%}">New</a></li>
+          <li><a href="{% url 'profile'%}">Profile</a></li>
+          <!-- <li><a href="#departments">Departments</a></li> -->
+          <li><a href="{% url 'logout'%}" >Exit</a></li>
+          {% else %}
+          <li><a href="{% url 'register'%}">Sign Up</a></li>
+          <li><a href="{% url 'login'%}">Sign In</a></li>
+
+          {% endif %}
+
+        </ul>
+      </nav><!-- .nav-menu -->
+
+      <a href="#" class="end-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
+
+    </div>
+  </header>
+  <!-- End Header -->
 
   <!-- main blog section -->
   <!-- Page Content -->
- 
     <!-- alert messages -->
     {% if messages %}
     {% for message in messages%}
@@ -72,15 +76,16 @@
     {% endfor %}
     {% endif %}
 
+    <section class="container">
     {% block content %}
 
     {% endblock content %}
-
+    </section>
 
 
   <footer>
     <div class="text-center p-3">
-      <p>&copy; <a href="#" class="link">Owidi</a> Kevin @
+      <p>&copy; designed and made by: <a href="#" class="link">Owidi</a> Kevin @
         <script type="text/javascript">
           document.write(new Date().getFullYear());
         </script>
@@ -90,6 +95,9 @@
 
   </footer>
 
+  <!-- bootstrap js -->
+  <script src="{% static 'post/js/bootstrap.min.js' %}"></script>
+  <!-- local js -->
   <script src="{% static 'post/js/script.js' %}"></script>
 
 </body>

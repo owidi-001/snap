@@ -20,7 +20,7 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})    
 
 
-# profile view and upadate
+# profile view and update
 @login_required
 def profile(request):
     if request.method == 'POST':
