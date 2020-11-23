@@ -1,26 +1,25 @@
-{% extends 'post/base.html' %} {% load static %} 
-{% load crispy_forms_tags%} 
+{% extends 'post/base.html' %}
+{% load static %} 
+{% load crispy_forms_tags %} 
 {%block content %}
-<form class="form-style-9">
-    <ul>
-    <li>
-        <input type="text" name="field1" class="field-style field-split align-left" placeholder="Username" />
-        <input type="email" name="field2" class="field-style field-split align-right" placeholder="Email" />
-    
-    </li>
-    <li>
-        <input type="password" name="field3" class="field-style field-split align-left" placeholder="Password" />
-        <input type="password" name="field3" class="field-style field-split align-left" placeholder="Password confirmation" />
-    </li>
-    <li>
-    <input type="text" name="field3" class="field-style field-full align-none" placeholder="Subject" />
-    </li>
-    <li>
-    <textarea name="field5" class="field-style" placeholder="Message"></textarea>
-    </li>
-    <li>
-    <input type="submit" value="Sign Up" />
-    </li>
-    </ul>
-    </form>
+
+<div class="m-5">
+    <div class="card pt-5 align-items-center">
+        <h3><span><b>iSnap</b></span> login</h3>
+        <hr>
+        <form class="form-style-9" action="#" method="post">
+            {% csrf_token %}
+            <div class="form-group justify-content-between align-items-center">
+                <label for="username">Username</label>
+                {{form.username}}
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{form.password}}
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-outline-primary form-control">Login</button>
+        </form>
+    </div>
+</div>
 {% endblock content %}
