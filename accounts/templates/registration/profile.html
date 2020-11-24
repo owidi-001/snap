@@ -3,21 +3,28 @@
 {% load crispy_forms_tags%}
 
 {% block content %}
-<div class="detail">
-    <div class="row post">
-      <div class="col">
-          <h3>
-              <span>{{user.username}}'s profile</span>
-          </h3>
-          <br>
+
+<div class="card m-5">
+    
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center justify-content-between">
+      <a href="#"><img src="{{user.profile.image.url}}"
+            class="circle img-fluid" alt="Photo of {{ post.user}}"
+            style="border-radius: 50%;height: 3rem;width: 3rem" /></a>
+            <br>
+      
+     
       </div>
-      <div class="col">
-          <img class="img-responsive" src="{{user.profile.image.url}}"
-              style="width: 50px;height: 50px; border-radius: 50%;" alt="">
+      <div class="d-flex align-items-center">
+        
+        <h1 class="mt-4">{{user.username}}</h1>
       </div>
     </div>
+
     <hr>
+
     <span>({{ page_obj.paginator.count }}) posts</span>
+
     <!-- Blog Post -->
     <div class="post">
         {% for post in posts %}
@@ -37,7 +44,7 @@
     
           {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
-              <a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+              <a class="btn btn-outline-primary mb-4" href="?page={{ num }}">{{ num }}</a>
             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
               <a class="btn btn-outline-primary mb-4" href="?page={{ num }}">{{ num }}</a>
             {% endif %}
