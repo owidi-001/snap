@@ -1,9 +1,10 @@
+{% load static %}
 /* 
 #globals 
 */
 
 :root{
-  --main-color:linear-gradient(rgb(55, 0, 158),rgba(116, 3, 87, 0.733));
+  --main-color:#00154f;
   --gradient-color:#03396b;
   --primary:#03396b;
   --major-grey:#444444;
@@ -31,7 +32,11 @@ a:hover {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto", sans-serif;
 }
-
+.fa{
+  font-size: 1.8rem;
+  margin-right: 0.5em;
+  color: var(--main-color);
+}
 
   /*--------------------------------------------------------------
   # Top Bar

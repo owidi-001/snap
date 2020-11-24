@@ -5,14 +5,14 @@ from django.utils import timezone
 
 class Post(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    title=models.CharField(max_length=150,blank=True,null=True)
-    subtitle=models.CharField(max_length=300,blank=True,null=True)
+    # title=models.CharField(max_length=150,blank=True,null=True)
+    # subtitle=models.CharField(max_length=300,blank=True,null=True)
     upload = models.ImageField(blank=True, null=True,upload_to ='media/media') 
     caption=models.TextField()
     date_posted=models.DateField(auto_now=timezone.now)
 
     def __str__(self):
-        return self.title
+        return self.date_posted
 
     def get_absolute_url(self):
         return reverse("post", kwargs={"pk": self.pk})
@@ -25,4 +25,4 @@ class Comment(models.Model):
     date_added=models.DateTimeField(auto_now=timezone.now)
 
     def __str__(self):
-        return '%s %s' (self.post.title, self.name)
+        return '%s %s' (self.post.date_posted, self.name)

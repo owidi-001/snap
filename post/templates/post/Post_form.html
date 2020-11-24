@@ -7,25 +7,15 @@
     <div class="card pt-5 align-items-center">
   <h3 class="card-title text-center">Create a Post</h3>
   <hr>
-  <form class="form-signin" action="#" method="post">
+  <form class="form-signin" action="#" enctype="multipart/form-data" method="post">
     {% csrf_token %}
     <fieldset class="form-group">
-      <div class="form-group">
-        <label for="Post title">Add a title:</label>
-        {{form.title}}
-
-      </div>
       <div class="form-group">
         <label for="Post file or photo">Upload a photo</label>
         {{form.upload}}
       </div>
       <div class="form-group">
-        <label for="Post Subtitle">Say something about this photo:</label>
-        {{form.subtitle}}
-
-      </div>
-      <div class="form-group">
-        <label for="text caption">Any caption?</label>
+        <label for="text caption">Say something</label>
         {{form.caption}}
       </div>
       <hr class="my-4" />
