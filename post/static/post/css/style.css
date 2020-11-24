@@ -6,13 +6,13 @@
   --main-color:linear-gradient(rgb(55, 0, 158),rgba(116, 3, 87, 0.733));
   --gradient-color:#03396b;
   --primary:#03396b;
-  --text-color:#444444;
+  --major-grey:#444444;
   --major-white:#ffffff;
   --major-black:#000000;
 }
 body {
   font-family: "Open Sans", sans-serif;
-  color: var(--text-color);
+  color: var(--major-grey);
 
 }
 main#main{
@@ -84,11 +84,18 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1;
     font-weight: 600;
     letter-spacing: 0.5px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
   }
-  
-  #header .logo a {
-    color: #555555;
+
+  @media (max-width: 576px) {
+    #header .container {
+      padding-right: 0px;
+      padding-left: 15px;
+    }
+  }
+  #header h1 .logo a.nav-brand {
+    /* color: #555555; */
+    color: var(--main-color);
   }
   
   #header .logo img {
@@ -127,7 +134,7 @@ h1, h2, h3, h4, h5, h6 {
   .nav-menu a {
     display: block;
     position: relative;
-    color: #555555;
+    /* color: #555555; */
     transition: 0.3s;
     font-size: 13px;
     font-family: "Roboto", sans-serif;
@@ -143,7 +150,7 @@ h1, h2, h3, h4, h5, h6 {
   .end-btn {
     margin-left: 25px;
     background: var(--main-color);
-    color: var(--major-white);
+    color: var(--major-white) !important;
     border-radius: 4px;
     padding: 8px 25px;
     white-space: nowrap;
@@ -152,6 +159,15 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
   }
   
+  @media (max-width:576px){
+    .end-btn {
+      margin-left: none;
+      border-radius: 2px;
+      padding: 8px 0px;
+      font-size: 12px;
+    }
+    
+  }
   .end-btn:hover {
     background: var(--gradient-color);
     color: var(--major-white);
@@ -207,6 +223,14 @@ h1, h2, h3, h4, h5, h6 {
   /*--------------------------------------------------------------
   # body card design
   --------------------------------------------------------------*/
-  .card{
-    border-radius: none;
+.card{
+    border-radius: none !important;
+    border: none !important;
+  }
+  section div.card-header,section div.card div.card-footer{
+    color: var(--major-black) !important;
+  }
+  section div.card-body img{
+    border-radius: none !important;
+    border: none !important;
   }
