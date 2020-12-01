@@ -40,7 +40,11 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
+      {% if user.is_authenticated %}
       <h1 class="logo mr-auto"><a href="{% url 'post'%}" class="nav-brand"> iSnap </a></h1>
+      {% else %}
+      <h1 class="logo mr-auto"><a href="{% url 'register'%}" class="nav-brand"> iSnap </a></h1>
+      {% endif %}
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>

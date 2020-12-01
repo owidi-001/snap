@@ -5,7 +5,7 @@
 
 :root{
   --main-color:#00154f;
-  --gradient-color:#03396b;
+  --gradient-color:#0d569b;
   --primary:#03396b;
   --major-grey:#444444;
   --major-white:#ffffff;
@@ -21,7 +21,7 @@ main#main{
 }
 
 a {
-  color: var(--main-color);
+  color: var(--gradient-color);
 }
 
 a:hover {
@@ -239,3 +239,87 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: none !important;
     border: none !important;
   }
+
+
+  /* auth forms stylin */
+#auth-forms{
+    background:var(--main-color);
+    color: var(--major-white);
+    text-align: center;
+    margin: 7.5% auto;
+    max-width: 1280px;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.logo{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+#auth-forms img{
+    width: 30%;
+    height: auto;
+}
+
+.form legend{
+    font-size: 3rem;
+    /* text-align: center; */
+}
+.form .entry-forms{
+    border-left: 0.5px solid var(--major-white);
+    padding-left: 1.2rem;
+}
+.form .form-group{
+    padding: 1rem;
+}
+.form .form-group input{
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 90%;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid var(--major-white);
+}
+.form .form-group button{
+    width: 93%;
+    padding: 0.5rem;
+    border: 1px solid var(--major-white);
+    background: transparent;
+    color: var(--main-white);
+    border-radius: 8px;
+    
+}
+/* form responsive */
+@media only screen and (max-width: 601px) {
+  #auth-forms {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+      display: block;
+      align-items: center;
+  }
+  .logo{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+  }
+  img{
+      width: 20%;
+      height: auto;
+  }
+  .form .entry-forms{
+      border-left: none;
+      padding-left: 1.2rem;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  #auth-forms {
+    width: 80%;
+  }
+}
+  /* end of auth forms */

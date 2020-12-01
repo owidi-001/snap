@@ -133,7 +133,7 @@ MEDIA_URL = '/media/'
 
 # login redirect
 LOGIN_REDIRECT_URL = 'post'
-LOGOUT_REDIRECT_URL = 'post'
+LOGOUT_REDIRECT_URL = 'register'
 
 # pass reset
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
