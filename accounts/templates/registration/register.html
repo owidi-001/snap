@@ -29,7 +29,7 @@
   </div>
 </div>
 
-<script>
+{% comment %} <script>
   var form_fields = Document.getElementByTagName("input");
   form_fields[1].placeholder = "Username";
   form_fields[2].placeholder = "Email";
@@ -39,5 +39,5 @@
   for (var field in form_fields) {
     form_fields[field].className += " form-control";
   }
-</script>
+</script> {% endcomment %}
 {% endblock content %}
