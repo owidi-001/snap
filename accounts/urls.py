@@ -4,7 +4,7 @@ from post.views import UserProfilePostListView
 
 
 urlpatterns = [
-    path('register/',user_views.register, name='register'),
+    path('',user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
     
 ]

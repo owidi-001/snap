@@ -5,13 +5,13 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    path('', include('accounts.urls')),
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-    path('',include('accounts.urls')),  
-    path('',include('post.urls')),  
+    # path('',include('accounts.urls')),  
+    path('home',include('post.urls')),  
     path('', include('django.contrib.auth.urls')),
     # api
-    path('api/', include('rest_framework.urls', namespace='rest_framework'))
+    path('', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 if settings.DEBUG:

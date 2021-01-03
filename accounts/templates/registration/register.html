@@ -1,6 +1,10 @@
-{% extends 'post/base.html' %} 
-{% load static %} 
+{% extends 'post/base.html' %}
+{% load static %}
 {% block content %}
+
+<div id="brand">
+    <h3><a href="{% url 'login' %}" class="nav-brand">iSnap</a> </h3>
+</div>
 
 <div class="container" id="auth-forms">
   <div class="logo">
@@ -29,7 +33,7 @@
   </div>
 </div>
 
-{% comment %} <script>
+<script>
   var form_fields = Document.getElementByTagName("input");
   form_fields[1].placeholder = "Username";
   form_fields[2].placeholder = "Email";
@@ -39,5 +43,5 @@
   for (var field in form_fields) {
     form_fields[field].className += " form-control";
   }
-</script> {% endcomment %}
+</script>
 {% endblock content %}

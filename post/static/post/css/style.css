@@ -242,15 +242,20 @@ h1, h2, h3, h4, h5, h6 {
 
 
   /* auth forms stylin */
+#brand h3{
+  text-align: center;
+  font-weight: 600;
+}
+
 #auth-forms{
     background:var(--main-color);
     color: var(--major-white);
     text-align: center;
-    margin: 7.5% auto;
+    margin: 1% auto;
     max-width: 1280px;
     width: 80%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
     align-items: center;
 }
 
@@ -260,7 +265,7 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
 }
 #auth-forms img{
-    width: 30%;
+    width: 45%;
     height: auto;
 }
 
@@ -323,3 +328,44 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
   /* end of auth forms */
+
+
+  /* COMMENT BOX */
+#comment-box { 
+  padding-top:1rem;
+ }
+ #comment-box .widget .panel-heading{
+   display: flex;
+   /* align-items: flex-end; */
+   justify-content: space-between;
+
+ }
+ #comment-box .panel-body {
+    padding:0px;
+   }
+ #comment-box .list-group { 
+   margin-bottom: 0; 
+  }
+  #comment-box li.list-group-item {
+  border-radius: 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+#comment-box li.list-group-item:hover { 
+  background-color: rgba(86,61,124,.1);
+ }
+
+
+.widget .mic-info {
+  color: #666666;
+  font-size: 11px; 
+}
+.widget .action { margin-top:5px; }
+.widget .comment-text { 
+  font-size: 12px; 
+}
+#comment-box .btn-block { 
+  border-top-left-radius:0px;
+  border-top-right-radius:0px;
+}
+  /* END OF COMMENT BOX */

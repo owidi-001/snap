@@ -4,58 +4,128 @@
 
 {% for post in posts %}
 <!-- <br> -->
-  <div class="card" style="border: none;border-radius: none;">
-    <div class="card-header">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-          <div class="d-flex align-items-center">
-            <a href="{% url 'user-posts' post.user.username%}"><img src="{{post.user.profile.image.url}}"
-              class="circle img-fluid mr-2" alt="Photo of {{ post.user}}"
-              style="border-radius: 50%;height: 2rem;width: 2rem" /></a>  <a href="{% url 'user-posts' post.user.username%}"
-              style="text-transform: capitalize; color: #3a3939; font-size:1.5rem;"><b>{{ post.user}}</b></a>
-          </div>
-          <div class="d-flex align-items-center">
-            <a href="{% url 'detail' pk=post.pk %}" target="_blank" rel="noopener noreferrer"><i class="fa fa-readme"></i></a>
-          </div>
-        </div>
-     
-    </div>
-    <div class="card-body">
-      {% if post.upload %}
-      <img class="card-img img-fluid" src="{{post.upload.url}}" alt="">
-      {% else %}
-      <div class="container">
-        {{ post.caption }}
+<div class="card" style="border: none;border-radius: none;">
+  <div class="card-header">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <a href="{% url 'user-posts' post.user.username%}"><img src="{{post.user.profile.image.url}}"
+            class="circle img-fluid mr-2" alt="Photo of {{ post.user}}"
+            style="border-radius: 50%;height: 2rem;width: 2rem" /></a> <a
+          href="{% url 'user-posts' post.user.username%}"
+          style="text-transform: capitalize; color: #3a3939; font-size:1.5rem;"><b>{{ post.user}}</b></a>
       </div>
-      {% endif %}
-    </div>
-    <div class="card-footer">
-      <div class="row caption">
-        something
+      <div class="d-flex align-items-center">
+        <a href="{% url 'detail' pk=post.pk %}" target="_blank" rel="noopener noreferrer"><i
+            class="fa fa-readme"></i></a>
       </div>
-      <hr>
-      <div class="d-flex justify-content-between">
-        <div class="d-flex align-items-center">
-          <a href="#">{{ post.approved_comments.count }} <i class="fa fa-heart"></i></a>
-        </div>
-        <div class="d-flex align-items-center">
-          <div class="d-flex justify-content-between">
-            <div class="share d-flex">
-              <i class="fa fa-comments"></i>
+    </div>
+
+  </div>
+  <div class="card-body">
+    {% if post.upload %}
+    <img class="card-img img-fluid" src="{{post.upload.url}}" alt="">
+    {% else %}
+    <div class="container">
+      {{ post.caption }}
+    </div>
+    {% endif %}
+  </div>
+  <div class="card-footer">
+    <div class="row caption">
+      something
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center">
+        <a href="#">{{ post.approved_comments.count }} <i class="fa fa-heart"></i></a>
+      </div>
+      <div class="d-flex align-items-center">
+        <div class="d-flex justify-content-between">
+
+          <div class="share d-flex dropdown">
+            <i class="fa fa-comments" id="comments-drop" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false"></i>
+
+            <!-- comment box -->
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In, non.</p>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime rerum placeat voluptatem alias odio.
+                Odit nulla ad recusandae architecto aperiam!</p>
             </div>
+            <!-- end of comment box -->
+          </div>
+          <!--             
             <div class="repost d-flex">
               <i class="fa fa-share-square"></i>
-            </div>
-            <div class="like d-flex">
+            </div> -->
+          <!-- <div class="like d-flex">
               <i class="fa fa-retweet"></i>
-            </div>
-          </div>
+            </div> -->
         </div>
       </div>
     </div>
+    <!-- COMMENT BOX -->
+    <hr>
+    <div class="container" id='comment-box'>
+
+      <div class="row">
+        <div class="panel panel-default widget">
+          <div class="panel-heading">
+            <div>
+              <h5 class="panel-title">Comments</h5>
+            </div>
+            <div>
+              <span class="label label-info">
+                {{ post.comments.count }}
+              </span>
+            </div>
+          </div>
+          
+          <div class="panel-body">
+            <ul class="list-group">
+              {% for comment in comments %}
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-xs-2 col-md-1">
+                    <img src="{{post.user.profile.image.url}}" class="img-circle img-responsive" alt="" /></div>
+                  <div class="col-xs-10 col-md-11">
+                    <div class="mic-info">
+                      By: <a href="#">{{comment.user}}</a> {{comment.date_added}}
+                    </div>
+                    <div class="comment-text">
+                      {{comment.body}}
+                    </div>
+                    <div class="action">
+                      <button type="button" class="btn btn-primary btn-xs" title="Edit">
+                        <span class="fa fa-pencil"></span>
+                      </button>
+                      <button type="button" class="btn btn-success btn-xs" title="Approved">
+                        <span class="fa fa-ok"></span>
+                      </button>
+                      <button type="button" class="btn btn-danger btn-xs" title="Delete">
+                        <span class="fa fa-trash"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+            <a href="#" class="btn btn-primary btn-sm btn-block" role="button"><span class="fa fa-refresh"></span>
+              More</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- END OF COMMENT BOX -->
+
+
   </div>
-  <!-- <br> -->
-  <hr>
-  <!-- <br> -->
+</div>
+<!-- <br> -->
+<hr>
+<!-- <br> -->
 {% endfor %}
 
 {% endblock content %}

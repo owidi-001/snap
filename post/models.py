@@ -1,3 +1,8 @@
+'''
+TO DO:
+LIMIT THE NUMBER OF TEXT CHARACTERS SOMEONE CAN COMMENT FOR PROPER VIEWS AND PAGINATION
+'''
+
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -17,10 +22,24 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
     post=models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    name=models.CharField(max_length=200)
-    body=models.TextField(blank=True)
+    body=models.TextField(default='No comments',blank=True)
     date_added=models.DateTimeField(auto_now=timezone.now)
 
     def __str__(self):
-        return f'%s %s' (self.post.date_posted, self.name)
+        return f'{self.body} by {self.user}'
+
+class Likes(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    post=models.ForeignKey(Post, on_delete=models.CASCADE)
+    count= models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.count
+
+    class Meta:
+        db_table = 'Likes'
+        managed = True
+        verbose_name = 'Like'
+        verbose_name_plural = 'Likes'

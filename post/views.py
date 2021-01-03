@@ -1,3 +1,10 @@
+'''
+TO DO:
+RELATE CREATE VIEWS WITH THE FORMS
+CREATE LIKE VIEW AND ADD LOGIC FOR THE COUNTS
+'''
+
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -9,7 +16,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post 
+from .models import Post,Comment,Likes 
 from django.contrib.auth.models import User
 # from accounts.models import profile
 from django.urls import reverse_lazy
@@ -17,10 +24,12 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 
 
-class PostListView(ListView):
+# post views
+class PostListView(ListView,LoginRequiredMixin):
     model = Post
     template_name = 'post/post.html'
     context_object_name = 'posts'
+    success_url = reverse_lazy('post')
     ordering = ['-date_posted']
     paginate_by = 10
 
@@ -87,6 +96,38 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.user:
+            return True
+        return False
+
+
+
+# comments views
+class CommentListView(ListView,LoginRequiredMixin):
+    model = Comment
+    template_name = 'post/post.html'
+    context_object_name = 'comments'
+    success_url = reverse_lazy('post')
+    ordering = ['-date_added']
+    paginate_by = 3
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    template_name = 'post/post.html'
+    fields = ['body']
+    success_url = reverse_lazy('post')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    success_url = reverse_lazy('post')
+
+    def test_func(self):
+        comment = self.get_object()
+        if self.request.user == comment.user:
             return True
         return False
 
