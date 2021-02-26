@@ -1,3 +1,7 @@
 django
+pillow
 gunicorn
+django-heroku
+django-crispy-forms
+djangorestframework
 django-heroku

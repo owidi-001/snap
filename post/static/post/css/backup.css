@@ -16,66 +16,6 @@ img{
   justify-content: space-between;
 }
 
-/* nav bar */
- /* nav */
- /* nav {
-  background: #000;
-  position: relative;
-  font-family: "Courier New", monospace;
-}
-button.menu {
-  display: none;
-}
-nav div {
-  padding-right: 2rem;
-  padding-left: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-nav form input {
-  width: 18rem;
-  padding: 0.2rem;
-  border: none;
-  border-radius: 0.5rem;
-}
-nav form input:focus {
-  border: none;
-}
-nav .navbar-nav ul {
-  display: flex;
-  justify-content: space-between;
-}
-
-nav .navbar-nav ul li {
-  list-style: none;
-}
-
-nav a {
-  text-decoration: none;
-  color: rgb(221, 221, 221);
-}
-nav a.nav-brand {
-  display: inline-block;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  margin-right: 1rem;
-  font-size: 1.25rem;
-  line-height: inherit;
-  white-space: nowrap;
-}
-nav a.nav-link {
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-}
-nav a.nav-link:focus,
-nav a.nav-link:hover {
-  color: rgba(255, 255, 255, 0.7);
-}
- */
-
-
 /* post page */
 
 /* post box */

@@ -24,48 +24,19 @@
   <div class="card-body">
     {% if post.upload %}
     <img class="card-img img-fluid" src="{{post.upload.url}}" alt="">
-    {% else %}
+    {% endif %}
+
+    <!-- check for post text caption -->
+    {% if post.caption %}
     <div class="container">
       {{ post.caption }}
     </div>
     {% endif %}
   </div>
   <div class="card-footer">
-    <div class="row caption">
-      something
-    </div>
-    <hr>
-    <div class="d-flex justify-content-between">
-      <div class="d-flex align-items-center">
-        <a href="#">{{ post.approved_comments.count }} <i class="fa fa-heart"></i></a>
-      </div>
-      <div class="d-flex align-items-center">
-        <div class="d-flex justify-content-between">
 
-          <div class="share d-flex dropdown">
-            <i class="fa fa-comments" id="comments-drop" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false"></i>
-
-            <!-- comment box -->
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In, non.</p>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime rerum placeat voluptatem alias odio.
-                Odit nulla ad recusandae architecto aperiam!</p>
-            </div>
-            <!-- end of comment box -->
-          </div>
-          <!--             
-            <div class="repost d-flex">
-              <i class="fa fa-share-square"></i>
-            </div> -->
-          <!-- <div class="like d-flex">
-              <i class="fa fa-retweet"></i>
-            </div> -->
-        </div>
-      </div>
-    </div>
+    
     <!-- COMMENT BOX -->
-    <hr>
     <div class="container" id='comment-box'>
 
       <div class="row">
@@ -80,14 +51,15 @@
               </span>
             </div>
           </div>
-          
+
           <div class="panel-body">
             <ul class="list-group">
               {% for comment in comments %}
               <li class="list-group-item">
                 <div class="row">
                   <div class="col-xs-2 col-md-1">
-                    <img src="{{post.user.profile.image.url}}" class="img-circle img-responsive" alt="" /></div>
+                    <img src="{{post.user.profile.image.url}}" class="img-circle img-responsive" alt="" />
+                  </div>
                   <div class="col-xs-10 col-md-11">
                     <div class="mic-info">
                       By: <a href="#">{{comment.user}}</a> {{comment.date_added}}
@@ -119,7 +91,6 @@
 
     </div>
     <!-- END OF COMMENT BOX -->
-
 
   </div>
 </div>
