@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'post.apps.PostConfig',
-    'accounts.apps.AccountsConfig',
-    'crispy_forms',
+    'snapserver.apps.SnapserverConfig',
+    # 'accounts.apps.AccountsConfig',
+    # 'crispy_forms',
     'rest_framework',
 ]
 
