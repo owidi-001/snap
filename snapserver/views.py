@@ -1,7 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserRegisterForm,UserProfileForm
+from .forms import UserRegisterForm, UserProfileForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 
 
 def register(request):
@@ -15,8 +21,7 @@ def register(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
-    return render(request, 'registration/register.html', {'form': form})    
-
+    return render(request, 'registration/register.html', {'form': form})
 
 
 # profile view and update
@@ -36,3 +41,41 @@ def profile(request):
         'p_form': p_form,
     }
     return render(request, 'registration/profile.html', context)
+
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    template_name = 'snapserver/index.html'
+    fields = ['title', 'upload', 'caption']
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.author
+        return super().form_valid(form)
+
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['title', 'upload', 'caption']
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.author
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.author == post.author:
+            return True
+        return False
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('home')
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.author == post.author:
+            return True
+        return False

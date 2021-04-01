@@ -8,11 +8,12 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+
 class Post(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
-    upload = models.ImageField(blank=True, null=True,upload_to ='media/media') 
-    caption=models.TextField()
-    date_posted=models.DateField(auto_now=timezone.now)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    upload = models.ImageField(blank=True, null=True, upload_to='media/media')
+    caption = models.TextField()
+    date_posted = models.DateField(auto_now=timezone.now)
 
     def __str__(self):
         return self.date_posted
@@ -22,19 +23,20 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
-    post=models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    body=models.TextField(default='No comments',blank=True)
-    date_added=models.DateTimeField(auto_now=timezone.now)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    body = models.TextField(default='No comments', blank=True)
+    date_added = models.DateTimeField(auto_now=timezone.now)
 
     def __str__(self):
         return f'{self.body} by {self.user}'
 
+
 class Likes(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
-    post=models.ForeignKey(Post, on_delete=models.CASCADE)
-    count= models.IntegerField(default=0)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    count = models.IntegerField(default=0)
+
     def __str__(self):
         return self.count
 

@@ -1,12 +1,15 @@
 from rest_framework import serializers
-from snapserver.models import User,Post,Comments,Profile
+from snapserver.models import User, Post, Comments, Profile
+
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model=Post
-        fields='__all__'
+        model = Post
+        fields=['url','id','title','upload','caption','date_posted','notes','author']
+        # fields = '__all__'
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model=User
-        fields='__all__'
+        model = User
+        fields = '__all__'

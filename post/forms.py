@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post,Comment
+from .models import Post, Comment
 
 
 class CreatePostForm(forms.ModelForm):
@@ -9,6 +9,7 @@ class CreatePostForm(forms.ModelForm):
             "upload",
             "content",
         ]
+
 
 class CreateCommentForm(forms.ModelForm):
     class Meta:

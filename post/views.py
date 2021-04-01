@@ -4,7 +4,6 @@ RELATE CREATE VIEWS WITH THE FORMS
 CREATE LIKE VIEW AND ADD LOGIC FOR THE COUNTS
 '''
 
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -16,7 +15,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post,Comment,Likes 
+from .models import Post, Comment, Likes
 from django.contrib.auth.models import User
 # from accounts.models import profile
 from django.urls import reverse_lazy
@@ -25,13 +24,14 @@ from django.db.models import Q
 
 
 # post views
-class PostListView(ListView,LoginRequiredMixin):
+class PostListView(ListView, LoginRequiredMixin):
     model = Post
-    template_name = 'post/post.html'
+    template_name = 'snapserver/index.html'
     context_object_name = 'posts'
     success_url = reverse_lazy('post')
     ordering = ['-date_posted']
     paginate_by = 10
+
 
 class UserPostListView(ListView):
     model = Post
@@ -42,6 +42,7 @@ class UserPostListView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(user=user).order_by('-date_posted')
+
 
 class UserProfilePostListView(ListView):
     model = Post
@@ -100,9 +101,8 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-
 # comments views
-class CommentListView(ListView,LoginRequiredMixin):
+class CommentListView(ListView, LoginRequiredMixin):
     model = Comment
     template_name = 'post/post.html'
     context_object_name = 'comments'
@@ -120,6 +120,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
@@ -144,5 +145,3 @@ class SearchResultsView(ListView):
             Q(name__icontains=query) | Q(state__icontains=query)
         )
         return object_list
-
-
