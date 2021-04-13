@@ -1,54 +1,77 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractUser, PermissionsMixin
+from django.contrib.auth.models import BaseUserManager, AbstractUser, PermissionsMixin, AbstractBaseUser
 from django.utils import timezone
+from django.contrib import messages
+from django.template.defaultfilters import slugify
+import datetime
 
 
 # create user
 class UserManager(BaseUserManager):
     # create normal user
-    def create_user(self, email, password=None, is_active=True, is_admin=False):
+    def create_user(self, username, email, password=None, is_staff=False, is_active=True, is_admin=False):
+        if not username:
+            raise ValueError(f'{username} is not available !')
         if not email:
             raise ValueError('Email is required for login !')
+        if not password:
+            raise ValueError("Password must be 8 characters or longer")
         user = self.model(
-            email=self.email
+            username=username,
+            email=email
         )
         user.set_password(password)
+        user.staff = is_staff
         user.admin = is_admin
         user.active = is_active
         user.save(using=self._db)
         return user
 
-    # create admin user
-    def create_superuser(self, email, password=None):
+    # create staff user with lesser privileges
+    def create_staff(self, username, email, password=None):
         user = self.create_user(
+            username,
             email,
             password=password,
             is_active=True,
+            is_staff=True,
+            is_admin=False,
+        )
+        return user
+
+    # create admin user
+    def create_superuser(self, username, email, password=None):
+        user = self.create_user(
+            username,
+            email,
+            password=password,
+            is_active=True,
+            is_staff=True,
             is_admin=True,
         )
         return user
 
 
-class User(AbstactBaseUser, PermissionsMixin):
-    email = models.EmailField(max_length=100, unique=True)
+class User(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=50, unique=True, blank=False, null=False)
+    email = models.EmailField(max_length=100, unique=True, blank=False, null=False)
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
-    def __str__(self):
-        return self.email
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
+        """Does the user have a specific permission?"""
+        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
+        """Does the user have permissions to view the app `app_label`?"""
+        # Simplest possible answer: Yes, always
         return True
 
     @property
@@ -56,27 +79,43 @@ class User(AbstactBaseUser, PermissionsMixin):
         return self.active
 
     @property
+    def is_staff(self):
+        return self.staff
+
+    @property
     def is_admin(self):
         return self.admin
 
+    def get_user_mail(self):
+        return self.email
+
+    def __str__(self):
+        return self.username
+
+    def get_absolute_url(self):
+        return reverse('home', kwargs={'pk': self.pk})
+
 
 class Profile(models.Model):
-    first_name = models.CharField(max_length=255, default=None)
-    last_name = models.CharField(max_length=255, default=None)
-    email = models.OneToOneField(User, on_delete=models.CASCADE)
-    biography = models.TextField()
+    username = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=255, default=None, null=True)
+    last_name = models.CharField(max_length=255, default=None, null=True)
+    email = models.EmailField()
+    phone = models.CharField(max_length=13, null=True, blank=True)
+    date_of_birth = models.DateTimeField(default=timezone.now)
+    biography = models.TextField(null=True)
+    website = models.CharField(max_length=150, default=None, null=True)
     avatar = models.ImageField(null=True, upload_to='media/avatar')
+
+    if not first_name or not last_name:
+        messages.warning('Please key in your first and last name')
+    if not phone:
+        messages.warning('Please key in your phone number.')
+    if not biography:
+        messages.warning('Give your a friends a short description of yourself.')
 
     def __str__(self):
         return self.email
-
-    def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        return True
-
-    def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        return True
 
     class Meta:
         verbose_name = 'profile'
@@ -89,9 +128,13 @@ class Profile(models.Model):
         return f'{self.first_name}'
 
 
+User.profile = property(lambda user: Profile.objects.get_or_create(username=user)[0])
+
+
 # post section
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    slug = models.CharField(max_length=150, unique=True)
     title = models.CharField(
         max_length=300, default=None, null=True, blank=True)
     upload = models.FileField(upload_to='media/posts')
@@ -100,7 +143,15 @@ class Post(models.Model):
     notes = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'{self.title} posted by {self.author}'
+        return self.title
+
+    def save(self):
+        super(Post, self).save()
+        date = datetime.date.today()
+        self.slug = '%i/%i/%i/%i-%s' % (
+            date.year, date.month, date.day, self.id, slugify(self.title)
+        )
+        super(Post, self).save()
 
 
 class Comments(models.Model):

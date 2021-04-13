@@ -1,1 +1,4 @@
 /snap/secrets.py
+.env
+db.sqlite3
+/snapserver/migrations

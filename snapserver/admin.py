@@ -7,6 +7,16 @@ from django.core.exceptions import ValidationError
 
 from snapserver.models import User, Post, Profile, Comments
 
+# custom admin site
+from django.contrib.admin import AdminSite
+
+
+class SnapAdmin(AdminSite):
+    site_header = 'Snap Dashboard'
+
+
+admin.site = SnapAdmin(name='snapadmin')
+
 
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -14,7 +24,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = 'email'
+        fields = ('username', 'email',)
 
     def clean_password2(self):
         # Validate passwords
@@ -39,7 +49,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('first_name', 'last_name', 'biography', 'active', 'avatar')
+        fields = ('first_name', 'last_name', 'phone', 'date_of_birth', 'website', 'biography', 'avatar')
 
     def clean_password(self):
         return self.initial["password"]
@@ -53,11 +63,11 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'first_name', 'last_name', 'biography', 'active', 'avatar', 'admin', 'staff')
-    list_filter = ('admin',)
+    list_display = ('username', 'email', 'staff', 'active', 'admin')
+    list_filter = ('admin', 'staff', 'active')
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal id', {'fields': ('reg_no',)}),
+        (None, {'fields': ('username', 'password')}),
+        ('Personal id', {'fields': ('email',)}),
         ('Permissions', {'fields': ('is_admin',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -65,21 +75,35 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2'),
+            'fields': ('username', 'email', 'password1', 'password2'),
         }),
     )
-    search_fields = ('email',)
-    ordering = ('email',)
+    search_fields = ('username',)
+    ordering = ('username',)
     filter_horizontal = ()
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['username', 'email', 'first_name', 'last_name', 'phone']
+    list_filter = ('username', 'email')
+
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ['author', 'slug', 'title', 'date_posted', 'notes']
+    list_filter = ('author', 'date_posted', 'notes')
+
+
+@admin.register(Comments)
+class CommentsAdmin(admin.ModelAdmin):
+    list_display = ['author', 'comment', 'date_commented']
+    list_filter = ('author', 'date_commented')
 
 
 # Now register the new UserAdmin...
 admin.site.register(User, UserAdmin)
-
-# since we're not using Django's built-in permissions,
-# unregister the Group model from admin.
-admin.site.unregister(Group)
-
+# admin.site.unregister(Group)
 admin.site.register(Post)
-admin.site.register(Profile)
-admin.site.register(Comments)
+admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Comments, CommentsAdmin)
