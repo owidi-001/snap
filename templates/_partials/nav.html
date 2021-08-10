@@ -1,0 +1,56 @@
+<!-- Start Logo-->
+  <nav
+    class="navbar is-fixed-top is-white"
+    role="navigation"
+    aria-label="main navigation"
+  >
+    <div class="navbar-brand">
+      <a class="navbar-item navbar-brand" href="{% url 'home'%}"> iSnap</a>
+
+      <a
+        role="button"
+        class="navbar-burger"
+        aria-label="menu"
+        aria-expanded="false"
+        data-target="navbar"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <!-- Midde menu -->
+    <div id="navbar" class="navbar-menu">
+      <div class="navbar-start"></div>
+      <div class="navbar">
+        <a class="navbar-item" href="{%url 'post_create'%}"> Create </a>
+         <a class="navbar-item" href="#"> Learn </a>
+         <a class="navbar-item" href="#"> Friends </a>
+<!--        <div class="navbar-item has-dropdown is-hoverable">-->
+<!--          <a class="navbar-link is-arrowless"> Category </a>-->
+
+<!--          <div class="navbar-dropdown">-->
+<!--            <a class="navbar-item"> Makeup kit </a>-->
+<!--            <a class="navbar-item"> Nail Kit </a>-->
+<!--            <a class="navbar-item"> Bangles </a>-->
+<!--            <a class="navbar-item"> Earings </a>-->
+<!--            <a class="navbar-item"> Nose Rings </a>-->
+<!--            <a class="navbar-item"> Wedding Rings </a>-->
+<!--            <hr class="navbar-divider" />-->
+<!--            <a class="navbar-item"> Necklaces</a>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+
+      <!-- End Icons -->
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="navbar-item" href="#"> <i class="fa fa-share"></i> </a>
+          <a href="#" class="icon">
+            <i class="fa fa-hands-helping"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>

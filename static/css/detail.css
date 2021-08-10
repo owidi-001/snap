@@ -1,0 +1,114 @@
+#filters {
+  margin-top: 3.25em;
+  background: var(--primary);
+  color: var(--white);
+  padding: 0.8em;
+}
+#filters li a {
+  color: var(--white);
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.left-main {
+  min-height: 50vh;
+}
+/* aside.menu{
+    background: #000;
+} */
+
+#detail aside.menu ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#detail aside.menu li {
+  padding: 0em 0em 2em 0em;
+}
+#detail aside.menu li img {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+/* main{
+    background: green;
+} */
+#detail main .image {
+  margin-bottom: 1em;
+  padding: 0;
+}
+#detail main .offers {
+  text-align: center;
+  color: var(--dark);
+}
+#detail main .offers:first-child {
+  border-right: 1px solid var(--dark);
+  background: #000;
+}
+
+#detail .right-main {
+  /* background: yellow; */
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+  justify-content: space-between;
+}
+#detail .right-main .wrapper .quantity {
+  margin: 1em;
+  padding: 0.8em;
+  border: 1px solid var(--dark);
+  color: var(--dark);
+  border-radius: 1em;
+  cursor: pointer;
+}
+#detail .right-main .wrapper .quantity.active {
+  border: 1px solid var(--primary);
+}
+
+#detail .btns {
+  width: 100%;
+  /* background: orange; */
+  /* padding: 1em;    */
+  display: flex;
+}
+#detail .btns .counts {
+  /* text-align: center; */
+  background: var(--white);
+  width: 100%;
+  border: 1px solid var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2em;
+  color: var(--dark) !important;
+  font-size: 1.5em;
+  border: none;
+
+  border-radius: 1.5em;
+  margin: 0em 1em 0em 0em;
+}
+
+#detail .btns .confirm {
+  text-align: center;
+  margin: 0em 1em 0em 0em;
+  background: var(--primary);
+  padding: 1em;
+  border: 1px solid var(--primary);
+  border-radius: 1.5em;
+  width: 100%;
+}
+section#searches {
+  margin-top: 2em;
+  padding-top: 1em;
+}
+
+section#searches .container {
+  padding-top: 1em;
+  border-top: 1px solid var(--gradient);
+}

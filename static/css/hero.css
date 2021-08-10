@@ -1,0 +1,33 @@
+#hero{
+background:var(--white);
+position:relative;
+text-align:center;
+}
+#hero .container-fluid{
+margin-top:3.25em;
+}
+#hero .container-fluid h2{
+font-weight:800;
+font-size:4em;
+margin:0.5em 0;
+}
+#hero .container-fluid p.p1{
+font-weight:300;
+font-size:1.5em;
+}
+#hero .container-fluid p.p2{
+font-weight:600;
+font-size:1em;
+margin-bottom:1.5em;
+}
+#hero .container-fluid a.btn{
+background:var(--dark);
+color:var(--light);
+padding:0.5em 1em;
+border:none;
+border-radius:0.2em;
+margin-top:1em;
+cursor:pointer;
+letter-spacing:2px;
+font-family:var(--font-family);
+}

@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import register, logout, profile, post, post_create #login
+from .views import register, logout, profile, home, post_create, post_view  # login
 # auth and password
 from django.contrib.auth import views as auth_views
 
@@ -8,7 +8,7 @@ urlpatterns = [
     path('api', include('snapserver.api.urls')),
 
     # accounts
-    path('', register, name='register'),
+    path('auth', register, name='register'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', logout, name='logout'),
     path('profile', profile, name='profile'),
@@ -22,7 +22,10 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     # post
-    path('home', post, name='home'),
-    path('post_create', post_create, name='post_create')
+    path('', home, name='home'),
+    path('post_create', post_create, name='post_create'),
+
+    # test post display
+    path('post', post_view, name='posts'),
 
 ]

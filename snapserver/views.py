@@ -1,18 +1,32 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.core.paginator import Paginator
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import logout
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm,ProfileUpdateForm, CreatePostForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, CreatePostForm
 
 from django.views.generic import (
-    CreateView,
     UpdateView,
     DeleteView
 )
 from .models import Post
+import random
+
+
+# landing page
+def home(request):
+    # post_list = Post.objects.all()
+    # cache_post = {}
+    # for i in range(len(list(post_list))):
+    #     cache_post[i] = post_list[i].upload
+    context = {'posts': Post.objects.all()}
+    return render(request, 'post/home.html', context)
+
+
+def post_view(request):
+    context = {'posts': Post.objects.all()}
+    return render(request, 'post/post.html', context)
 
 
 # accounts
@@ -30,26 +44,11 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
-
-# def login(request):
-#     username = request.POST['username']
-#     password = request.POST['password']
-#     user = authenticate(request, username=username, password=password)
-#     if user is not None:
-#         login(request, user)
-#         # Redirect to a success page.
-#         messages.success(f'Welcome @{username}')
-#         return redirect('home')
-#     else:
-#         # Return an 'invalid login' error message.
-#         messages.warning(f'@{username} not found !!! \n Please register to log in...')
-#         return render(request,'registration/register.html')
-
 def logout_view(request):
     logout(request)
-    # Redirect to a success page.
     messages.success(f'Successfully logged out. \n Log in to view the site.')
     return redirect('login')
+
 
 # profile view and update
 @login_required
@@ -78,7 +77,7 @@ def profile(request):
 @login_required
 def post(request):
     context = Post.objects.all().order_by('-date_posted')[:10]
-    return render(request, 'post/index.html',{context:context})
+    return render(request, 'post/index.html', {context: context})
 
 
 @login_required
@@ -87,7 +86,7 @@ def post_create(request):
         form = CreatePostForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            messages.success(request, f'Post successfully uploaded. Let\'s view in the blogs')
+            messages.success(request, f'Upload successful. Let\'s view in the posts')
             return redirect('home')
     else:
         form = CreatePostForm()

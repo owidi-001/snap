@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+{% block main %} 
+{% include '_partials/nav.html'%} 
+{%include '_partials/hero.html'%}
+
+<!--START INTRO-->
+<section id="start">
+  <div class="container">
+      <div class="column">
+          {% for post in posts %}
+        <a class="wrapper">
+          <img src="{{post.upload.url}}" alt="{{post.title}}">
+          <div class="mini-detail">
+            <div class="mini-body">
+              <h4>{{post.title}}</h4>
+              <h2>{{post.caption}}</h2>
+                <br>
+                <small>{{post.date_posted}}</small>
+            </div>
+          </div>
+        </a>
+      <hr>
+      {% endfor %}
+      </div>
+  </div>
+</section>
+
+{% endblock main%}

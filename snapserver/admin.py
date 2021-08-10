@@ -91,19 +91,13 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['author', 'slug', 'title', 'date_posted', 'notes']
-    list_filter = ('author', 'date_posted', 'notes')
-
-
-@admin.register(Comments)
-class CommentsAdmin(admin.ModelAdmin):
-    list_display = ['author', 'comment', 'date_commented']
-    list_filter = ('author', 'date_commented')
+    list_display = ['author', 'slug', 'title', 'date_posted']
+    list_filter = ('author', 'date_posted')
 
 
 # Now register the new UserAdmin...
-admin.site.register(User, UserAdmin)
 # admin.site.unregister(Group)
+admin.site.register(User, UserAdmin)
 admin.site.register(Post)
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Comments, CommentsAdmin)
+admin.site.register(Comments)

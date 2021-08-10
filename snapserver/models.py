@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractUser, PermissionsMixin, AbstractBaseUser
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.template.defaultfilters import slugify
@@ -65,13 +66,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email']
 
     def has_perm(self, perm, obj=None):
-        """Does the user have a specific permission?"""
-        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
-        """Does the user have permissions to view the app `app_label`?"""
-        # Simplest possible answer: Yes, always
         return True
 
     @property
@@ -107,13 +104,6 @@ class Profile(models.Model):
     website = models.CharField(max_length=150, default=None, null=True)
     avatar = models.ImageField(null=True, upload_to='media/avatar')
 
-    if not first_name or not last_name:
-        messages.warning('Please key in your first and last name')
-    if not phone:
-        messages.warning('Please key in your phone number.')
-    if not biography:
-        messages.warning('Give your a friends a short description of yourself.')
-
     def __str__(self):
         return self.email
 
@@ -138,9 +128,8 @@ class Post(models.Model):
     title = models.CharField(
         max_length=300, default=None, null=True, blank=True)
     upload = models.FileField(upload_to='media/posts')
-    caption = models.TextField(default=None, null=True, blank=True)
+    caption = models.TextField(default=None, null=False, blank=False)
     date_posted = models.DateTimeField(auto_now_add=timezone.now)
-    notes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -154,13 +143,20 @@ class Post(models.Model):
         super(Post, self).save()
 
 
+class Notes(models.Model):
+    noted_by = models.OneToOneField(User, on_delete=models.CASCADE)
+    notes_on = models.ForeignKey(Post, on_delete=models.CASCADE)
+    count = models.IntegerField(default=0)
+
+
 class Comments(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ManyToManyField(User)
+    comment_on = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment = models.TextField(default=None, null=True, blank=True)
     date_commented = models.DateTimeField(auto_now_add=timezone.now)
 
     def __str__(self):
-        return f'{self.author}'
+        return f'{self.author}: {self.comment_on} '
 
     class Meta:
         verbose_name = 'Comments'
