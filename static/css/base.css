@@ -1,5 +1,5 @@
-/*! bulma.io v0.9.2 | MIT License | github.com/jgthms/bulma */
-/* Bulma Utilities */
+/*! base.io v0.9.2 | MIT License | github.com/jgthms/base */
+/* base Utilities */
 .button,
 .input,
 .textarea,
@@ -305,7 +305,7 @@ fieldset[disabled] .pagination-ellipsis {
   top: 0;
 }
 
-/* Bulma Base */
+/* base Base */
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 html,
 body,
@@ -548,7 +548,7 @@ table th {
   }
 }
 
-/* Bulma Elements */
+/* base Elements */
 .box {
   background-color: white;
   border-radius: 6px;
@@ -3588,7 +3588,7 @@ a.tag:hover {
   vertical-align: top;
 }
 
-/* Bulma Form */
+/* base Form */
 .input,
 .textarea,
 .select select {
@@ -5083,7 +5083,7 @@ fieldset[disabled] .select select:hover {
   font-size: 1.5rem;
 }
 
-/* Bulma Components */
+/* base Components */
 .breadcrumb {
   font-size: 1rem;
   white-space: nowrap;
@@ -7618,7 +7618,7 @@ label.panel-block:hover {
   font-size: 1.5rem;
 }
 
-/* Bulma Grid */
+/* base Grid */
 .column {
   display: block;
   flex-basis: 0;
@@ -9560,7 +9560,7 @@ label.panel-block:hover {
   }
 }
 
-/* Bulma Helpers */
+/* base Helpers */
 .has-text-white {
   color: white !important;
 }
@@ -11481,7 +11481,7 @@ a.has-text-danger-dark:focus {
   }
 }
 
-/* Bulma Layout */
+/* base Layout */
 .hero {
   align-items: stretch;
   display: flex;
@@ -12550,4 +12550,4 @@ a.has-text-danger-dark:focus {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem;
 }
-/*# sourceMappingURL=bulma.css.map */
+/*# sourceMappingURL=base.css.map */

@@ -14,7 +14,7 @@
 }
 
 body {
-  min-height: 100vh;
+  height: max-content;
   position: relative;
   background: var(--light);
   font-family: var(--font-family);
@@ -22,7 +22,6 @@ body {
 img {
   width: 100%;
   height: auto;
-  overflow: hidden;
 }
 a {
   text-decoration: none;
@@ -39,7 +38,7 @@ a.icon {
   writing-mode: vertical-rl;
   letter-spacing: 0.2em;
   font-family: var(--font-family-monospace);
-  background: var(--primary);
+  background: var(--gradient);
   padding: 1em 0.8em;
   font-size: 1.1em;
   z-index: 1000;
