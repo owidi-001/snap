@@ -1,3 +1,6 @@
+/* #start{
+  margin-bottom: 5em !important;
+} */
 .grid a {
   float: left;
   max-width: 25%;
@@ -15,7 +18,6 @@
   z-index: 3;
   width: 100%;
   height: 100%;
-  /* opacity: 0; */
   transition: 0.7s;
 }
 

@@ -5,6 +5,7 @@ footer {
   width: 100%;
   bottom: 0;
   padding: 0.8em;
+  margin-top: 2em;
 }
 footer .container {
   display: flex;

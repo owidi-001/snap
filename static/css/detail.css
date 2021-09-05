@@ -5,7 +5,7 @@
   padding: 0.8em;
 }
 #filters li a {
-  color: var(--white);
+  color: var(--dark);
 }
 .breadcrumb {
   display: flex;

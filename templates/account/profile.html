@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block main %}
+{% include '_partials/nav.html'%}
+
+<!--START INTRO-->
+<section class="hero is-fullheight-with-navbar" id="start">
+    <div class="container">
+        <h1>profile</h1>
+        <p>{{user.username}}</p>
+    </div>
+</section>
+
+{% endblock main%}

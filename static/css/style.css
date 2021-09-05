@@ -5,7 +5,6 @@
 }
 :root {
   --primary: 4a4a4a;
-  --gradient: pink;
   --darker:#000;
   --dark: #4a4a4a;
   --light: whitesmoke;
@@ -33,12 +32,12 @@ a.icon {
 /* edge */
 .edge {
   position: fixed;
-  bottom: 40%;
+  bottom: 24%;
   right: 0;
   writing-mode: vertical-rl;
   letter-spacing: 0.2em;
   font-family: var(--font-family-monospace);
-  background: var(--gradient);
+  background: var(--dark);
   padding: 1em 0.8em;
   font-size: 1.1em;
   z-index: 1000;
