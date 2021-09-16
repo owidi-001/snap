@@ -2,28 +2,90 @@
 {% block main %}
 {% include '_partials/header.html'%}
 
+
+
 <!--START INTRO-->
 <section id="start">
   <div class="container">
-    <div class="grid">
-      {% if posts %}
-      {% include '_partials/dummy.html' %}
-      {% else %}
-      {% for post in posts %}
-      <a class="wrapper" href="{% url 'detail' post.id%}">
-        <img src="{{post.upload.url}}" alt="{{post.title}}">
-        <div class="mini-detail">
-          <div class="mini-body">
-            <h4>{{post.title}}</h4>
-            <h2>{{post.caption}}</h2>
-            <br>
-            <small>{{post.date_posted}}</small>
+    <div class="row">
+      <div class="column">
+        {% for post in first %}
+        <a class="wrapper" href="{% url 'detail' post.id%}">
+          <img src="{{post.upload.url}}" alt="{{post.title}}">
+          <div class="card-overlay">
+            <div class="items"></div>
+            <div class="items-head">
+              {{post.title}}
+            </div>
+            <div class="items-footer">
+              <ul>
+                <li><i class="fa fa-heart"></i></li>
+                <li><i class="fa fa-download"></i></li>
+              </ul>
+            </div>
           </div>
-        </div>
-      </a>
-      <hr>
-      {% endfor %}
-      {% endif %}
+
+        </a>
+        {% endfor %}
+      </div>
+      <div class="column">
+        {% for post in second %}
+        <a class="wrapper" href="{% url 'detail' post.id%}">
+          <img src="{{post.upload.url}}" alt="{{post.title}}">
+          <div class="card-overlay">
+            <div class="items"></div>
+            <div class="items-head">
+              {{post.title}}
+            </div>
+            <div class="items-footer">
+              <ul>
+                <li><i class="fa fa-heart"></i></li>
+                <li><i class="fa fa-download"></i></li>
+              </ul>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      <div class="column">
+        {% for post in third %}
+        <a class="wrapper" href="{% url 'detail' post.id%}">
+          <img src="{{post.upload.url}}" alt="{{post.title}}">
+          <div class="card-overlay">
+            <div class="items"></div>
+            <div class="items-head">
+              {{post.title}}
+            </div>
+            <div class="items-footer">
+              <ul>
+                <li><i class="fa fa-heart"></i></li>
+                <li><i class="fa fa-download"></i></li>
+              </ul>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      <div class="column">
+        {% for post in fourth %}
+        <a class="wrapper" href="{% url 'detail' post.id%}">
+          <img src="{{post.upload.url}}" alt="{{post.title}}">
+          <div class="card-overlay">
+            <div class="items"></div>
+            <div class="items-head">
+              {{post.title}}
+            </div>
+            <div class="items-footer">
+              <ul>
+                <li><i class="fa fa-heart"></i></li>
+                <li><i class="fa fa-download"></i></li>
+              </ul>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+
     </div>
   </div>
 </section>

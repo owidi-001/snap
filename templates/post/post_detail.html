@@ -1,5 +1,5 @@
-{% extends 'base.html' %} 
-{% block main %} 
+{% extends 'base.html' %}
+{% block main %}
 {% include '_partials/nav.html'%}
 
 
@@ -16,15 +16,34 @@
 </div>
 <!-- END BREADCRUMB -->
 
-
-
 <!--article-->
 <article>
-  <div class="container p-6">Nothing here just a filer</div>
-  {{post.title}}
-  <img src="{{post.upload.url}}" alt="{{post.upload.url}}">
-  <small>{{post.date_posted}}</small>
+  <div class="container">
+
+    <img src="{{post.upload.url}}" alt="{{post.upload.url}}">
+
+  </div>
+  <div class="container">
+    <h2>{{post.title}}</h2>
+    <p>{{post.caption}}</p>
+    <small>{{post.date_posted}}</small>
+    {% if request.user == post.author %}
+    <button>DELETE</button>
+    {% endif %}
+
+    <form action="post_comment" method="post">
+      <h2 class="subtitle">Commend the author</h2>
+      <div class="comment">
+        <textarea name="comment" id="comment" class="textarea" placeholder="Add a comment"></textarea>
+        <button class="button is-dark" type="submit">Comment</button>
+      </div>
+
+    </form>
+  </div>
 </article>
+<div class="spacer">
+
+</div>
 
 
 {% endblock main%}

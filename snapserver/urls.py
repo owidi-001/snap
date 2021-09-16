@@ -10,12 +10,12 @@ urlpatterns = [
 
     # post detail
     path('<int:pk>', views.post_detail, name='detail'),  # UPDATE & DELETE
+    path('<int:pk>', views.post_comment, name='comment'),  # Comment
 
     # account
     path('profile', views.profile, name='profile'),
     # path('post/<int:pk>/', PostUpdateView.as_view(), name='author-update'),
     # path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='author-delete'),
-
 
     #
     # # accounts

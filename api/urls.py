@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     # posts
-    path('post/', views.PostList.as_view()),
+    path('api/', views.PostList.as_view()),
     path('api/<int:pk>/', views.PostDetail.as_view(), name='post-detail'),
 
     # users
