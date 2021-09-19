@@ -1,9 +1,9 @@
 from api.models import Post
-from django.shortcuts import render
-from django.http import Http404
-
+from django.shortcuts import render, get_object_or_404
+from django.utils.text import slugify
+from django.contrib.auth.decorators import login_required
 # forms
-from api.forms import PostUpdateForm, PostCommentForm
+from api.forms import PostUpdateForm, PostCommentForm, PostCreateForm
 
 # services
 from . import slicer
@@ -13,42 +13,44 @@ def home(request):
     return render(request, 'post/home.html', slicer.slicer())
 
 
+@login_required
 def post_create(request):
-    return render(request, 'post/create_post.html')
-
-
-def post_detail(request, pk):
-    try:
-        obj = Post.objects.get(pk=pk)
-    except Post.DoesNotExist:
-        raise Http404("No Post matches the given query.")
-
-    # update and delete
-    if request.user == obj.author:
-        u_form = PostUpdateForm()
-        if u_form.is_valid():
-            post = u_form.cleaned_data.save()
-        else:
-            U_form = PostUpdateForm()
-
-    return render(request, 'post/post_detail.html', {'post': obj})
-
-
-def post_comment(request, pk):
-    try:
-        obj = Post.objects.get(pk=pk)
-    except Post.DoesNotExist:
-        raise Http404("No Post matches the given query.")
-
     if request.method == 'POST':
-        form = PostCommentForm(request.POST, instance=request.user)
+        form = PostCreateForm(request.POST)
         if form.is_valid():
-            form.comment_by = request.user
-            form.post = obj
-            form.save()
-            return HttpResponseRedirect(reverse(pk))
-    return HttpResponse('post-detail')
+            post = form.save(commit=False)
+            post.author = request.user
+            post.slug = slugify(post.title)
+            return redirect('home')
+    else:
+        form = PostCreateForm(request.POST)
+    return render(request, 'post/create_post.html', {'form': form})
 
 
+def post_detail(request, post_slug):
+    post = get_object_or_404(Post, slug=post_slug)
+    return render(request, 'post/post_detail.html', {'post': post})
+
+
+@login_required
+def post_comment(request, post_slug):
+    if request.method == 'POST':
+        form = PostCommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.comment_by = request.user
+            comment.post = post_slug.id
+            comment.save()
+            return redirect(post_slug)
+    else:
+        form = PostCommentForm()
+
+    return HttpResponse('post-detail', {'form': form})
+
+
+@login_required
 def profile(request):
-    return render(request, 'account/profile.html')
+    user = request.user
+    posts = request.user.posts
+    return render(request, 'account/profile.html', {'user': user, 'posts': posts})

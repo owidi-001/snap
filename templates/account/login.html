@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block main %}
+{% include '_partials/nav.html'%}
+
+<!--START INTRO-->
+<section class="hero is-fullheight-with-navbar">
+    <div class="container">
+        <h1>login</h1>
+        <form action=".">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</section>
+
+{% endblock main%}

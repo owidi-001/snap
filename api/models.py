@@ -89,6 +89,7 @@ class Post(models.Model):
     upload = models.FileField(upload_to='media/posts', blank=False, null=False)
     title = models.CharField(
         max_length=300, default=None, null=False, blank=False, help_text='Give your post a context')
+    slug = models.SlugField(max_length=255,default=None,blank=True,null=True)
     caption = models.TextField(default=None, null=True, blank=True, help_text='Add a little story to this')
     date_posted = models.DateTimeField(auto_now_add=timezone.now)
 

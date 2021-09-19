@@ -68,7 +68,7 @@
       </div>
       <div class="column">
         {% for post in fourth %}
-        <a class="wrapper" href="{% url 'detail' post.id%}">
+        <a class="wrapper" href="{% url 'detail' post.id %}">
           <img src="{{post.upload.url}}" alt="{{post.title}}">
           <div class="card-overlay">
             <div class="items"></div>

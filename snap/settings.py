@@ -138,7 +138,7 @@ MEDIA_URL = '/media/'
 # login redirect
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'register'
+LOGOUT_REDIRECT_URL = 'home'
 
 # pass reset
 

@@ -9,20 +9,13 @@ urlpatterns = [
     path('post_create', views.post_create, name='post_create'),  # CREATE
 
     # post detail
-    path('<int:pk>', views.post_detail, name='detail'),  # UPDATE & DELETE
+    path('<slug:post_slug>', views.post_detail, name='detail'),  # UPDATE & DELETE
     path('<int:pk>', views.post_comment, name='comment'),  # Comment
 
     # account
+    path('', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
+    path('', auth_views.LogoutView.as_view(), name='logout'),
     path('profile', views.profile, name='profile'),
-    # path('post/<int:pk>/', PostUpdateView.as_view(), name='author-update'),
-    # path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='author-delete'),
-
-    #
-    # # accounts
-    # path('auth', register, name='register'),
-    # path('login/', auth_views.LoginView.as_view(), name='login'),
-    # path('logout/', logout, name='logout'),
-    # path('profile', profile, name='profile'),
 
     # password management
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
