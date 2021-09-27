@@ -1,9 +1,12 @@
 from api.models import Post
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+from django.contrib import messages
+
 # forms
-from api.forms import PostUpdateForm, PostCommentForm, PostCreateForm
+from api.forms import PostUpdateForm, PostCommentForm, PostCreateForm, CustomUserCreationForm
 
 # services
 from . import slicer
@@ -52,5 +55,18 @@ def post_comment(request, post_slug):
 @login_required
 def profile(request):
     user = request.user
-    posts = request.user.posts
+    posts = user.posts.all()
     return render(request, 'account/profile.html', {'user': user, 'posts': posts})
+
+
+# signup
+def signup(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, 'Account created successfully')
+        return redirect('login')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'account/signup.html', {'form': form})

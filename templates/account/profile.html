@@ -1,12 +1,38 @@
 {% extends 'base.html' %}
+{% block title%} vendors {% endblock title %}
+
 {% block main %}
 {% include '_partials/nav.html'%}
 
 <!--START INTRO-->
-<section class="hero is-fullheight-with-navbar" id="start">
+<section class="section is-fullheight" id="start">
     <div class="container">
-        <h1>profile</h1>
-        <p>{{user.username}}</p>
+        <div class="box">
+            <h1>{{user.email}}</h1>
+        <a href="{%url 'logout'%}" class="button is-danger is-uppercase">logout</a>
+        </div>
+        <div class="box">
+            <h2 class="is-size-3 mb-4">My posts</h2>
+            <a href="{% url 'post_create' %}" class="button is-dark is-uppercase mb-4">Create a post</a>
+            {% if posts %}
+                    {% for post in posts %}
+                    <a class="wrapper">
+                        <img src="{{post.upload.url}}" alt="{{post.title}}">
+                        <div class="mini-detail">
+                          <div class="mini-body">
+                            <h4>{{post.title}}</h4>
+                            <h2>{{post.caption}}</h2>
+                            <br>
+                            <small>{{post.date_posted}}</small>
+                          </div>
+                        </div>
+                      </a>
+                      <hr>
+                    {% endfor %}
+            {% else %}
+            <p>You don't have any post yet..</p>
+            {% endif %}
+        </div>
     </div>
 </section>
 

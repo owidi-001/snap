@@ -85,7 +85,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 # post section
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='posts', on_delete=models.CASCADE)
     upload = models.FileField(upload_to='media/posts', blank=False, null=False)
     title = models.CharField(
         max_length=300, default=None, null=False, blank=False, help_text='Give your post a context')

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block main %}
+{% include '_partials/nav.html'%}
+
+<!--START INTRO-->
+<section class="hero is-fullheight-with-navbar" id="login">
+    <div class="wrapper">
+        {% if messages %}
+        <div class="container">
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <legend class="legend">Join the move</legend>
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" name="submit" value="Sign Up">
+        </form>
+        <small>
+            Have account? <a href="{% url 'login' %}">Login</a>
+        </small>
+    </div>
+</section>
+
+{% endblock main%}

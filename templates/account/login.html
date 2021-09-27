@@ -3,14 +3,17 @@
 {% include '_partials/nav.html'%}
 
 <!--START INTRO-->
-<section class="hero is-fullheight-with-navbar">
-    <div class="container">
-        <h1>login</h1>
-        <form action=".">
+<section class="hero is-fullheight-with-navbar" id="login">
+    <div class="wrapper">
+        <legend class="legend">Login</legend>
+        <form method="POST">
             {% csrf_token %}
             {{form.as_p}}
             <input type="submit" value="Login">
         </form>
+        <small>
+            Don't have account? <a href="{% url 'signup' %}">Join the Move</a>
+        </small>
     </div>
 </section>
 

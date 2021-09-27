@@ -13,9 +13,10 @@ urlpatterns = [
     path('<int:pk>', views.post_comment, name='comment'),  # Comment
 
     # account
-    path('', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
+    path('signup/', views.signup, name='signup'),
+    path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     path('', auth_views.LogoutView.as_view(), name='logout'),
-    path('profile', views.profile, name='profile'),
+    path('profile/', views.profile, name='profile'),
 
     # password management
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),

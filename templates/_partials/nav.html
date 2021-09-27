@@ -13,18 +13,31 @@
   <!-- Midde menu -->
   <div id="navbar" class="navbar-menu">
     <div class="navbar-start"></div>
+    
+    {% if request.user.is_authenticated %}
     <div class="navbar">
       <a class="navbar-item" href="{%url 'post_create'%}"> Create </a>
       <a class="navbar-item" href="#"> Learn </a>
       <a class="navbar-item" href="#"> Friends </a>
     </div>
+    {% endif %}
+    <div class="navbar">
+    </div>
 
     <!-- End Icons -->
     <div class="navbar-end">
+      
+      {% if request.user.is_authenticated %}
       <div class="navbar-item">
-        <a href="#">{{user.username}}</a>
-        <a class="navbar-item" href="{% url 'profile' %}" class="fa fa-user" style="color:black">profile</a>
+        <a href="{% url 'profile'%}">{{request.user.email}}</a>
       </div>
+      {% else %}
+      <div class="navbar-item">
+        <a class="navbar-item" href="{% url 'login' %}" style="color:black">login</a>
+      </div>
+      {% endif %}
+
+        
     </div>
   </div>
 </nav>
