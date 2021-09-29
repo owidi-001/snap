@@ -2,7 +2,7 @@ from api.models import Post
 from django.shortcuts import render, get_object_or_404,redirect
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
 # forms
@@ -24,9 +24,13 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.slug = slugify(post.title)
-            return redirect('home')
+            print(post)
+            post.save()
+            messages.success('Post created successfully')
+        return redirect('home')
     else:
         form = PostCreateForm(request.POST)
+        print('Submit failed')
     return render(request, 'post/create_post.html', {'form': form})
 
 
@@ -66,6 +70,9 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             messages.success(request, 'Account created successfully')
+            # user = authenticate(request, username=user['email'], password=user['password'])
+            # if user is not None:
+            #     login(request, user)
         return redirect('login')
     else:
         form = CustomUserCreationForm()
