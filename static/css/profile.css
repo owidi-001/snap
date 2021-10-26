@@ -1,0 +1,98 @@
+#profile{
+    height:100vh;
+    width:100vw;
+    margin-left:0 !important;
+    padding-left:0 !important;
+    position:relative;
+}
+#profile .sidebar{
+background:var(--white);
+position:absolute;
+padding:2em;
+width:25%;
+height: calc(100vh - 3.25rem);
+}
+#profile .sidebar .profile{
+display:flex;
+align-items:center;
+flex-direction:column;
+justify-content:center;
+}
+#profile .sidebar img{
+max-width:6em;
+border-radius: 50%;
+border:1px solid black;
+margin-bottom:1em;
+}
+#profile .sidebar .stats{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+#profile .sidebar .stat{
+    padding:0em 1em;
+    text-align:center;
+}
+#profile .sidebar .side-nav{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+#profile .sidebar .side-nav ul{
+min-height:50vh;
+width:100%;
+display:flex;
+align-items:left;
+flex-direction:column;
+justify-content:space-around;
+}
+#profile .sidebar .side-nav ul li{
+border-bottom:1px solid grey;
+}
+#profile .sidebar .side-nav ul li a{
+color:black;
+margin-left:1em;
+}
+#profile .mainbar{
+padding:2em;
+min-height: calc(100vh - 3.25rem);
+width:75%;
+margin-left:25%;
+position:absolute;
+}
+
+/* responsive */
+@media screen and (max-width: 576px) {
+#profile{
+width:100%;
+padding-left:0 !important;
+margin-left:0 important;
+padding-right:0 !important;
+margin-right:0 important;
+}
+#profile .sidebar{
+position:relative;
+padding:0;
+margin:0;
+width:100%;
+height: max-content;
+}
+#profile .sidebar .stats{
+padding:1em;
+}
+#profile .sidebar .stat{
+    padding:0.5em;
+}
+#profile .sidebar .side-nav{
+display:none;
+}
+
+#profile .mainbar{
+padding:0;
+height: max-content;
+width:100%;
+margin-left:0;
+position:relative;
+}
+}
+
