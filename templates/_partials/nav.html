@@ -16,9 +16,9 @@
     
     {% if request.user.is_authenticated %}
     <div class="navbar">
-      <a class="navbar-item" href="{%url 'post_create'%}"> Create </a>
-      <a class="navbar-item" href="#"> Learn </a>
-      <a class="navbar-item" href="#"> Friends </a>
+      <form action="#" class="navbar-item" >
+        <input type="search" name="search" id="search" placeholder="Search">
+      </form>
     </div>
     {% endif %}
     <div class="navbar">
@@ -29,7 +29,7 @@
       
       {% if request.user.is_authenticated %}
       <div class="navbar-item">
-        <a href="{% url 'profile'%}">{{request.user.email}}</a>
+        <a class="navbar-item" href="{%url 'post_create'%}"> Create </a>
       </div>
       {% else %}
       <div class="navbar-item">

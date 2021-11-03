@@ -4,6 +4,7 @@ from django.db import models
 from django.core.mail import send_mail
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
 from django.conf import settings
@@ -43,7 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_active = models.BooleanField(_('active'), default=True)
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    avatar = models.ImageField(upload_to='media/avatars/', default="avatar.jpg", null=True, blank=True)
     phone = models.CharField(max_length=13, null=True, blank=True)
     biography = models.TextField(null=True)
     website = models.URLField(max_length=150, default=None, null=True)
@@ -82,26 +83,40 @@ class User(AbstractBaseUser, PermissionsMixin):
         # Simplest possible answer: All admins are staff
         return self.is_superuser
 
+    def __str__(self):
+        return self.email.split("@")[0]
+
 
 # post section
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='posts', on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', on_delete=models.CASCADE)
     upload = models.FileField(upload_to='media/posts', blank=False, null=False)
     title = models.CharField(
         max_length=300, default=None, null=False, blank=False, help_text='Give your post a context')
-    slug = models.SlugField(max_length=255,default=None,blank=True,null=True)
+    slug = models.SlugField(max_length=255, default=None, blank=True, null=True)
     caption = models.TextField(default=None, null=True, blank=True, help_text='Add a little story to this')
     date_posted = models.DateTimeField(auto_now_add=timezone.now)
 
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        self.slug = self.slug or slugify(self.title)
+        super().save(*args, **kwargs)
+
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
 
-class Comment(models.Model):
-    comment_by = models.ForeignKey(User, on_delete=models.PROTECT)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    comment = models.TextField(default=None, null=False, blank=False)
-    date_commented = models.DateTimeField(auto_now_add=timezone.now)
+# class Comment(models.Model):
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+#     name = models.ForeignKey(User, on_delete=models.PROTECT)
+#     body = models.TextField()
+#     created_on = models.DateTimeField(auto_now_add=True)
+#     active = models.BooleanField(default=False)
+#
+#     class Meta:
+#         ordering = ['created_on']
+#
+#     def __str__(self):
+#         return 'Comment {} by {}'.format(self.body, self.name)

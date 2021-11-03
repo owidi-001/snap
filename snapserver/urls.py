@@ -10,7 +10,7 @@ urlpatterns = [
 
     # post detail
     path('<slug:post_slug>', views.post_detail, name='detail'),  # UPDATE & DELETE
-    path('<int:pk>', views.post_comment, name='comment'),  # Comment
+    # path('<int:pk>', views.post_comment, name='comment'),  # Comment
 
     # account
     path('signup/', views.signup, name='signup'),

@@ -1,33 +1,29 @@
 <!--create-->
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block main %}
 {% include '_partials/nav.html'%}
+
+<!--START INTRO-->
 <section class="hero is-fullheight-with-navbar" id="create">
-    <div class="container-fluid">
-        <form method="post">
+    <div class="wrapper">
+        {% if messages %}
+        <div class="container">
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <legend><span><b>Publish your idea</b></span></legend>
+        <form action="post_create" method="POST">
             {% csrf_token %}
-            <legend><span><b>Publish your idea</b></span></legend>
-            <div class="entry-forms">
-                <div class="form-group">
-                    {{form.upload.label}}
-                    {{form.upload}}
-                </div>
-
-                <div class="form-group">
-                    {{form.title.label}}
-                    {{form.title}}
-                </div>
-                <div class="form-group">
-                    {{form.caption.label}}
-                    {{form.caption}}
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" name="submit" value="Publish">
-                    <input type="hidden" name="next" value="{{next}}">
-                </div>
-            </div>
+            {{form.as_p}}
+            <input type="submit" name="submit" value="Upload">
+            <input type="hidden" name="next" value="{{next}}">
         </form>
+
     </div>
 </section>
-{% endblock main %}
+
+{% endblock main%}

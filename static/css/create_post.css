@@ -1,138 +1,62 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-:root {
-  --primary: 4a4a4a;
-  --darker:#000;
-  --dark: #4a4a4a;
-  --light: whitesmoke;
-  --white: #fff;
-  --font-family: "Open Sans", sans-serif;
-}
 #create{
-display:flex;
-align-items:center;
-justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-#create form{
-border-top:2px solid blue;
-color:var(--dark);
-padding:4em;
-background:var(--white);
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
+#create label{
+    color: #212121;
+    line-height: 16px;
+    margin-bottom: 1em;
 }
-
-
-legend {
-    display: block;
+#create input{
     width: 100%;
-    max-width: 100%;
-    padding: 0;
-    margin-bottom: .5rem;
-    font-size: 1.5rem;
-    line-height: inherit;
-    color: inherit;
-    white-space: normal
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid #ccc !important;
+    border-radius: 4px;
+    font-family: GorditaRegular,sans-serif;
+    font-size: 16px;
+    box-shadow: 0 0 0 transparent !important;
 }
-.form-group {
-    margin-bottom: 1rem
-}
-.form-control {
-    display: block;
+#create textarea{
     width: 100%;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
+    height: 80px;
+    padding: 10px 12px;
+    border: 1px solid #ccc !important;
+    border-radius: 4px;
+    font-family: GorditaRegular,sans-serif;
+    font-size: 16px;
+    box-shadow: 0 0 0 transparent !important;
+}
+
+#create input[type=submit],button:focus, #create input[type=submit],button:hover {
+    color: #40a9ff;
     background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid blue;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
+    border-color: #40a9ff;
+    margin-top: 1em;
 }
-
-.form-control::-ms-expand {
-    background-color: transparent;
-    border: 0
-}
-
-.form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25)
-}
-
-.form-control::-webkit-input-placeholder {
-    color: #6c757d;
-    opacity: 1
-}
-
-.form-control::-moz-placeholder {
-    color: #6c757d;
-    opacity: 1
-}
-
-.form-control:-ms-input-placeholder {
-    color: #6c757d;
-    opacity: 1
-}
-
-.form-control::-ms-input-placeholder {
-    color: #6c757d;
-    opacity: 1
-}
-
-.form-control::placeholder {
-    color: #6c757d;
-    opacity: 1
-}
-
-
-
-
-button,input[type=submit] {
-    display: inline-block;
-    font-weight: 400;
+#create input[type=submit],button {
+    height: auto;
+    padding: 8px 16px;
+    color: #444;
+    font-family: GorditaMedium,sans-serif;
+    font-size: 14px;
+    letter-spacing: .4px;
     text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 0 transparent;
+    cursor: pointer;
+    background-color: initial;
 }
-
-button:focus,
-button:hover,input[type=submit]:focus,input[type=submit]:hover {
-    text-decoration: none
+#create input[type=submit],button{
+    color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+    -webkit-box-shadow: 0 2px 0 rgba(0,0,0,.045);
+    box-shadow: 0 2px 0 rgba(0,0,0,.045);
 }
-button:focus,input[type=submit]:focus {
+#create input[type=submit],button, #create   input[type=submit],button:active, #login input[type=submit],button:focus {
     outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25)
-}
-button:not(:disabled):not(.disabled) {
-    cursor: pointer
-}
-
-button:not(:disabled):not(.disabled).active,
-button:not(:disabled):not(.disabled):active {
-    background-image: none
-}
-button,input[type=submit] {
-    color: var(--white);
-    background-color: blue;
-    border-color: blue  ;
 }

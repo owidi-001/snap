@@ -19,10 +19,14 @@ flex-direction:column;
 justify-content:center;
 }
 #profile .sidebar img{
-max-width:6em;
+width:6em;
+height:6em;
 border-radius: 50%;
 border:1px solid black;
 margin-bottom:1em;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 #profile .sidebar .stats{
 display:flex;

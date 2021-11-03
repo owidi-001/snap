@@ -1,4 +1,8 @@
 /snap/config.py
 .env
 db.sqlite3
-/snapserver/migrations
+venv
+api/migrations
+static/fontawesome
+.idea
+.vscode
