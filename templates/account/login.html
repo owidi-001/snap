@@ -3,14 +3,30 @@
 {% include '_partials/nav.html'%}
 
 <!--START INTRO-->
-<section class="hero is-fullheight-with-navbar" id="login">
+<section class="hero" id="login">
     <div class="wrapper">
         <legend class="legend">Login</legend>
+        {% comment %}
         <form method="POST">
-            {% csrf_token %}
             {{form.as_p}}
             <input type="submit" value="Login">
         </form>
+        {% endcomment %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-control">
+                <label class="form-label" for="email">{{form.email.label}}</label>
+                <input class="form-input" placeholder="johndoe@mails.com" name="email" id="email" />
+            </div>
+            <div class="form-control">
+                <label class="form-label" for="password">{{form.password.label}}</label>
+                <input class="form-input" placeholder="********" name="password" id="password" />
+            </div>
+
+            <input type="submit" value="Login" class="btn submitBtn mx-auto" />
+
+        </form>
+
         <small>
             Don't have account? <a href="{% url 'signup' %}">Join the Move</a>
         </small>
