@@ -1,7 +1,7 @@
 from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 # forms
 from .forms import UserCreationForm
@@ -12,6 +12,8 @@ from .serializers import PostSerializer, UserSerializer
 
 
 class PostList(APIView):
+    serializer_class = PostSerializer()
+
     # Get post data // retrives post
     def get(self, request, format=None):
         posts = Post.objects.all()
@@ -31,6 +33,7 @@ class PostList(APIView):
 
 
 class PostDetail(APIView):
+    serializer_class = PostSerializer()
     """
     Retrieve, update or delete a snippet instance.
     """
@@ -61,6 +64,7 @@ class PostDetail(APIView):
 
 
 class UserListView(APIView):
+
     # retrieve user data
     def get(self, request, format=None):
         """

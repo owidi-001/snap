@@ -12,3 +12,12 @@ If you have any suggestion on the components I could improve or features to add,
 iSnap interface is optimised for perfect user experience \
 As well as series of more design stages that will follow to optimise user experience
 
+## API
+Snap as built from python robust web API django, has the endpoints opened for any frontend dev to play with.
+
+<br>
+The API is well documented with swagger ui and redoc as per routes.
+
+``/api``
+
+``redocs``

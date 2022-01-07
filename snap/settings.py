@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from .config import Config as config
+from .secrets import config
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -37,9 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api.apps.ApiConfig',
+
+    # 3rd party
     'rest_framework',
+    'drf_yasg',
+
+    # local
+    'api.apps.ApiConfig',
     'snapserver',
+
 ]
 
 REST_FRAMEWORK = {
