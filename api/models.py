@@ -5,7 +5,6 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
 from django.conf import settings
 
@@ -39,11 +38,11 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_('email address'), unique=True)
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
-    is_active = models.BooleanField(_('active'), default=True)
+    email = models.EmailField(help_text='email address', unique=True)
+    first_name = models.CharField(help_text='first name', max_length=30, blank=True)
+    last_name = models.CharField(help_text='last name', max_length=30, blank=True)
+    date_joined = models.DateTimeField(help_text='date joined', auto_now_add=True)
+    is_active = models.BooleanField(help_text='active', default=True)
     avatar = models.ImageField(upload_to='media/avatars/', default="avatar.jpg", null=True, blank=True)
     phone = models.CharField(max_length=13, null=True, blank=True)
     biography = models.TextField(null=True)
@@ -55,8 +54,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
 
     def get_full_name(self):
         """
@@ -108,15 +107,15 @@ class Post(models.Model):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
 
-# class Comment(models.Model):
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-#     name = models.ForeignKey(User, on_delete=models.PROTECT)
-#     body = models.TextField()
-#     created_on = models.DateTimeField(auto_now_add=True)
-#     active = models.BooleanField(default=False)
-#
-#     class Meta:
-#         ordering = ['created_on']
-#
-#     def __str__(self):
-#         return 'Comment {} by {}'.format(self.body, self.name)
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    name = models.ForeignKey(User, on_delete=models.PROTECT)
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.name)

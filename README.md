@@ -20,4 +20,4 @@ The API is well documented with swagger ui and redoc as per routes.
 
 ``/api``
 
-``redocs``
+``/redocs``

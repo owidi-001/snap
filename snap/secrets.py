@@ -10,8 +10,16 @@ class Config:
     EMAIL_HOST_USER = "mrmarangi4@gmail.com"
     EMAIL_HOST_PASSWORD = "pass"
     PORT = 465
-    development = True
-    ALLOWED_HOSTS = ["127.0.0.1"]
+    development = False
+    ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+
+    # Database config
+    ENGINE = 'django.db.backends.postgresql_psycopg2',
+    NAME = '<database_name>',
+    USER = '<user_name>',
+    PASSWORD = '<password>',
+    HOST = 'localhost',
+    DB_PORT = '',
 
 
 config = Config()
