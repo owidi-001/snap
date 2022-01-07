@@ -1,1 +1,1 @@
-web: gunicorn snap/wsgi --log-file -
+web: gunicorn snap.wsgi --log-file -
