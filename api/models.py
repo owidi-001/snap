@@ -43,7 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(help_text='last name', max_length=30, blank=True)
     date_joined = models.DateTimeField(help_text='date joined', auto_now_add=True)
     is_active = models.BooleanField(help_text='active', default=True)
-    avatar = models.ImageField(upload_to='media/avatars/', default="avatar.jpg", null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars', default="avatar.png", null=True, blank=True)
     phone = models.CharField(max_length=13, null=True, blank=True)
     biography = models.TextField(null=True)
     website = models.URLField(max_length=150, default=None, null=True)
@@ -89,7 +89,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 # post section
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', on_delete=models.CASCADE)
-    upload = models.FileField(upload_to='media/posts', blank=False, null=False)
+    upload = models.FileField(upload_to='posts', blank=False, null=False)
     title = models.CharField(
         max_length=300, default=None, null=False, blank=False, help_text='Give your post a context')
     slug = models.SlugField(max_length=255, default=None, blank=True, null=True)
@@ -109,13 +109,12 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    name = models.ForeignKey(User, on_delete=models.PROTECT)
-    body = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.PROTECT)
+    message = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['created_on']
 
     def __str__(self):
-        return 'Comment {} by {}'.format(self.body, self.name)
+        return 'Comment {} by {}'.format(self.message, self.author)

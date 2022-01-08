@@ -14,7 +14,7 @@ from .serializers import PostSerializer, UserSerializer
 class PostList(APIView):
     serializer_class = PostSerializer()
 
-    # Get post data // retrives post
+    # Get post data // retrieves post
     def get(self, request, format=None):
         posts = Post.objects.all()
         serializer = PostSerializer(posts, many=True)
