@@ -11,6 +11,7 @@ from .models import User, Post
 from .serializers import PostSerializer, UserSerializer
 
 
+
 class PostList(APIView):
     serializer_class = PostSerializer()
 

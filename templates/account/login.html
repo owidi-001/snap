@@ -16,14 +16,14 @@
             {% csrf_token %}
             <div class="form-control">
                 <label class="form-label" for="email">{{form.email.label}}</label>
-                <input class="form-input" placeholder="johndoe@mails.com" name="email" id="email" />
+                <input class="form-input" type="email" placeholder="johndoe@mails.com" name="email" id="email" />
             </div>
             <div class="form-control">
                 <label class="form-label" for="password">{{form.password.label}}</label>
-                <input class="form-input" placeholder="********" name="password" id="password" />
+                <input class="form-input" type="password" placeholder="********" name="password" id="password" />
             </div>
 
-            <input type="submit" value="Login" class="btn submitBtn mx-auto" />
+            <button class="btn submitBtn mx-auto">Login</button>
 
         </form>
 

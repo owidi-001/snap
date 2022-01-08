@@ -11,6 +11,8 @@ from api.forms import PostForm, CustomUserCreationForm  # , PostCommentForm
 from api.models import Post
 from api.models import User
 
+from django.contrib.auth import authenticate, login
+
 # services
 from . import slicer
 
@@ -120,3 +122,20 @@ def signup(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'account/signup.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, f'Welcome back {username}')
+            return redirect("/")
+        else:
+            # Return an 'invalid login' error message.
+            messages.warning(request, f'User {username} Not found')
+            return redirect("login")
+
+    return render(request, 'account/login.html')
