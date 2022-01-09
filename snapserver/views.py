@@ -82,9 +82,13 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             messages.success(request, 'Account created successfully')
-            # user = authenticate(request, username=user['email'], password=user['password'])
+            # user = authenticate(request, username=form['email'], password=form['password'])
             # if user is not None:
             #     login(request, user)
+            #     messages.success(request, f"Authenticated as {user.email}")
+            # else:
+            #     messages.info(request, "You can now login with your credentials")
+            #     return redirect("login")
         return redirect('login')
     else:
         form = CustomUserCreationForm()
