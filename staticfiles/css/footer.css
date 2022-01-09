@@ -1,0 +1,17 @@
+footer {
+  position: fixed;
+  background: var(--white);
+  color: var(--darker);
+  width: 100%;
+  bottom: 0;
+  padding: 0.8em;
+  margin-top: 2em;
+}
+footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+footer .container span a{
+  color:var(--primary);
+}
