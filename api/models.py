@@ -9,6 +9,14 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.conf import settings
 
 
+def avatar_upload(instance, filename):
+    return f"avatars/{instance.user.id}/{filename}"
+
+
+def post_upload(instance, filename):
+    return f"posts/{instance.author.id}/{filename}"
+
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -43,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(help_text='last name', max_length=30, blank=True)
     date_joined = models.DateTimeField(help_text='date joined', auto_now_add=True)
     is_active = models.BooleanField(help_text='active', default=True)
-    avatar = models.ImageField(upload_to='avatars', default="avatar.png", null=True, blank=True)
+    avatar = models.ImageField(upload_to=avatar_upload, default="avatars/avatar.png", null=True, blank=True)
     phone = models.CharField(max_length=13, null=True, blank=True)
     biography = models.TextField(null=True)
     website = models.URLField(max_length=150, default=None, null=True)
@@ -89,18 +97,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 # post section
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', on_delete=models.CASCADE)
-    upload = models.FileField(upload_to='posts', blank=False, null=False)
-    title = models.CharField(
-        max_length=300, default=None, null=False, blank=False, help_text='Give your post a context')
+    upload = models.ImageField(upload_to=post_upload, blank=False, null=False)
     slug = models.SlugField(max_length=255, default=None, blank=True, null=True)
     caption = models.TextField(default=None, null=True, blank=True, help_text='Add a little story to this')
     date_posted = models.DateTimeField(auto_now_add=timezone.now)
 
     def __str__(self):
-        return self.title
+        return self.slug
 
     def save(self, *args, **kwargs):
-        self.slug = self.slug or slugify(self.title)
+        self.slug = self.slug or slugify(self.upload)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

@@ -45,7 +45,7 @@ a.icon {
   border-top-right-radius:3em ;
   border-bottom-right-radius:3em ;
   font-size: 1.1em;
-  z-index: 1000;
+  z-index: 2;
   height:3em;
   width:3em;
 }
@@ -62,6 +62,11 @@ section.main {
 section.main .container {
   display: flex;
 }
-.hero{
+
+#start{
+  height: calc(100vh - 3.25em);
+}
+
+.forms{
   height: calc(100vh - 3.25em);
 }

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from .secrets import config
+
 # import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -182,7 +183,6 @@ AUTH_USER_MODEL = 'api.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-
 
 # whitenoise config
 WHITENOISE_USE_FINDERS = True

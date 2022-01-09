@@ -1,26 +1,26 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import User, Post #, Comment
+from api.models import User, Post, Comment
 from django.contrib.auth.forms import UserCreationForm
 
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['upload', 'title', 'caption']
+        fields = ['upload', 'caption']
 
 
 class PostUpdateForm(forms.Form):
     class Meta:
         model = Post
-        fields = ['upload', 'title', 'caption']
+        fields = ['caption']
 
 
-# class PostCommentForm(forms.ModelForm):
-#     class Meta:
-#         model = Comment
-#         fields = ['body']
+class PostCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['message']
 
 
 # user forms

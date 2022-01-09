@@ -10,7 +10,7 @@
     <div class="container-fluid row">
         <div class="sidebar">
             <div class="profile">
-                <img src="{{user.avatar}}" alt="{{name}}">
+                <img src="{{request.user.avatar}}" alt="{{name}}">
                 {% if user.first_name and user.last_name %}
                     <h4>{{user.first_name}} {{user.last_name}}</h4>
                 {% else %}

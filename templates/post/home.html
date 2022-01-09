@@ -7,6 +7,7 @@
 <!--START INTRO-->
 <section id="start">
   <div class="container">
+  {% if first %}
     <div class="row">
       <div class="column">
         {% for post in first %}
@@ -87,6 +88,11 @@
       </div>
 
     </div>
+  {% else %}
+       <div class="box is-primary mt-4">
+       <h1>No posts yet. Be the first to <a href="{% url "post_create" %}">upload</a> </h1>
+       </div>
+  {% endif %}
   </div>
 </section>
 

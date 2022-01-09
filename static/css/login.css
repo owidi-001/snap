@@ -20,13 +20,13 @@
     box-shadow: 0 0 0 transparent !important;
 }
 
-#login input[type=submit],button:focus, #login input[type=submit],button:hover {
+#login input[type=submit],button.btn,button:focus, #login input[type=submit],button:hover {
     color: #40a9ff;
     background-color: #fff;
     border-color: #40a9ff;
     margin-top: 1em;
 }
-#login input[type=submit],button {
+#login input[type=submit],button.btn {
     height: auto;
     padding: 8px 16px;
     color: #444;
@@ -40,7 +40,7 @@
     cursor: pointer;
     background-color: initial;
 }
-#login input[type=submit],button{
+#login input[type=submit],button.btn{
     color: #fff;
     background-color: #1890ff;
     border-color: #1890ff;

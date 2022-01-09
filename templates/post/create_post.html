@@ -16,10 +16,11 @@
         </div>
         {% endif %}
         <legend><span><b>Publish your idea</b></span></legend>
-        <form action="post_create" method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{form.as_p}}
-            <input type="submit" name="submit" value="Upload">
+{#            <input type="submit" name="submit" value="Upload">#}
+            <button type="submit">Post</button>
             <input type="hidden" name="next" value="{{next}}">
         </form>
 

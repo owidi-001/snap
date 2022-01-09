@@ -4,12 +4,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # forms
-from .forms import UserCreationForm
+from snapserver.forms import UserCreationForm
 # models
 from .models import User, Post
 # serializers
 from .serializers import PostSerializer, UserSerializer
-
 
 
 class PostList(APIView):

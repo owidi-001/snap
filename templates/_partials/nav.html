@@ -17,7 +17,12 @@
     {% if request.user.is_authenticated %}
     <div class="navbar">
       <form action="#" class="navbar-item" >
-        <input type="search" name="search" id="search" placeholder="Search">
+          <div class="control has-icons-left has-icons-right">
+    <input class="input is-small is-dark" type="search" name="search" placeholder="Search">
+    <span class="icon is-small is-left">
+      <i class="fa fa-search"></i>
+    </span>
+  </div>
       </form>
     </div>
     {% endif %}
@@ -29,11 +34,17 @@
       
       {% if request.user.is_authenticated %}
       <div class="navbar-item">
-        <a class="navbar-item" href="{%url 'post_create'%}"> Create </a>
+        <a class="navbar-item" href="{%url 'post_create'%}"> <i class="fa fa-clipboard"></i> </a>
+      </div>
+          <div class="navbar-item">
+        <a class="navbar-item" href="{%url 'profile'%}"> <i class="fa fa-user"></i> </a>
+      </div>
+          <div class="navbar-item">
+        <a class="navbar-item" href="{%url 'logout'%}"> <i class="fa fa-sign-out"></i> </a>
       </div>
       {% else %}
       <div class="navbar-item">
-        <a class="navbar-item" href="{% url 'login' %}" style="color:black">login</a>
+        <a class="navbar-item" href="{% url 'login' %}" style="color:black"><i class="fa fa-sign-in"></i></a>
       </div>
       {% endif %}
 

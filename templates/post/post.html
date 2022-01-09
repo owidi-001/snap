@@ -6,7 +6,8 @@
 <!--START INTRO-->
 <section id="start">
   <div class="container">
-    <div class="grid">
+   {% if post in posts %}
+        <div class="grid">
       {% for post in posts %}
       <a class="wrapper">
         <img src="{{post.upload.url}}" alt="{{post.title}}">
@@ -24,6 +25,11 @@
 
 
     </div>
+       {% else %}
+       <div class="box">
+       <h1>No posts yet. Be the first to <a href="{% url "post_create" %}">upload</a> </h1>
+       </div>
+      {% endif %}
   </div>
 </section>
 

@@ -44,30 +44,34 @@
         </div>
         {% endfor %}
 
-<!--    Add comment form-->
-    <div class="card-body">
-        {% if new_comment %}
-        <div class="alert alert-success" role="alert">
-          Your comment is awaiting moderation
-        </div>
-        {% else %}
-        <h3>Leave a comment</h3>
-        <form method="post" style="margin-top: 1.3em;">
-          {{ comment_form.as_p }}
-          {% csrf_token %}
-          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-        </form>
-        {% endif %}
-      </div>
 
-<!--    <form action="post_comment" method="post">-->
-<!--      <h2 class="subtitle">Commend the author</h2>-->
-<!--      <div class="comment">-->
-<!--        <textarea name="comment" id="comment" class="textarea" placeholder="Add a comment"></textarea>-->
-<!--        <button class="button is-dark" type="submit">Comment</button>-->
-<!--      </div>-->
 
-<!--    </form>-->
+    {#    Listing comments #}
+  {% for comment in comments %}
+  <div class="comment">
+    <p class="info">
+      Comment {{ forloop.counter }} by {{ comment.author }}
+      {{ comment.created_on }}
+    </p>
+    {{ comment.message|linebreaks }}
+  </div>
+{% empty %}
+  <p>There are no comments yet.</p>
+{% endfor %}
+
+{#  Creating a comment #}
+  {% if new_comment %}
+  <h2>Your comment has been added.</h2>
+{% else %}
+  <h2>Add a new comment</h2>
+  <form action="." method="post">
+  {% csrf_token %}
+    {{ comment_form.as_p }}
+    <p><button type="submit" class="btn btn-primary  btn-lg">Comment</button></p>
+  </form>
+{% endif %}
+
+
   </div>
 
 

@@ -3,7 +3,7 @@
 {% include '_partials/nav.html'%}
 
 <!--START INTRO-->
-<section class="hero" id="login">
+<section class="hero forms" id="login">
     <div class="wrapper">
         <legend class="legend">Login</legend>
         {% comment %}
@@ -15,11 +15,11 @@
         <form method="post">
             {% csrf_token %}
             <div class="form-control">
-                <label class="form-label" for="email">{{form.email.label}}</label>
+                <label class="form-label" for="email">Email</label>
                 <input class="form-input" type="email" placeholder="johndoe@mails.com" name="email" id="email" />
             </div>
             <div class="form-control">
-                <label class="form-label" for="password">{{form.password.label}}</label>
+                <label class="form-label" for="password">Password</label>
                 <input class="form-input" type="password" placeholder="********" name="password" id="password" />
             </div>
 

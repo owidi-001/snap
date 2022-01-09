@@ -6,7 +6,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Post
         # fields = '__all__'
-        fields = ['id', 'url', 'title', 'upload', 'caption', 'author', 'date_posted'] # use with hyperlinked model
+        fields = ['id', 'url', 'upload', 'caption', 'author', 'date_posted'] # use with hyperlinked model
         # serializers
 
 
