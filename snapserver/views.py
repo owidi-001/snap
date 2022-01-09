@@ -57,7 +57,7 @@ def post_detail(request, post_slug):
     else:
         comment_form = PostCommentForm
     return render(request, 'post/post_detail.html',
-                  {'post_obj': post,
+                  {'post': post,
                    'comments': comments,
                    'new_comment': new_comment,
                    'comment_form': comment_form})

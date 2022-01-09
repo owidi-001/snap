@@ -97,7 +97,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 # post section
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', on_delete=models.CASCADE)
-    upload = models.ImageField(upload_to=post_upload, blank=False, null=False)
+    upload = models.ImageField(upload_to=post_upload, blank=False, null=False,unique=True)
     slug = models.SlugField(max_length=255, default=None, blank=True, null=True)
     caption = models.TextField(default=None, null=True, blank=True, help_text='Add a little story to this')
     date_posted = models.DateTimeField(auto_now_add=timezone.now)
