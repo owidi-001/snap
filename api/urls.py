@@ -30,6 +30,6 @@ urlpatterns = [
 
     # users
     path('user/', views.UserListView.as_view()),
-    path('user/<int:pk>/', views.UserDetail.as_view(), name='profile'),
+    path('user/<int:pk>/', views.UserDetail.as_view(), name='user-detail'),
 ]
 

@@ -7,7 +7,7 @@
 }
 #profile .sidebar{
 background:var(--white);
-position:absolute;
+position:fixed;
 padding:2em;
 width:25%;
 height: calc(100vh - 3.25rem);
@@ -19,10 +19,10 @@ flex-direction:column;
 justify-content:center;
 }
 #profile .sidebar img{
-width:6em;
-height:6em;
-border-radius: 50%;
-border:1px solid black;
+max-width:10em;
+max-height:10em;
+/*border-radius: 50%;*/
+/*border:1px solid black;*/
 margin-bottom:1em;
 display:flex;
 align-items:center;
@@ -37,26 +37,32 @@ justify-content:center;
     padding:0em 1em;
     text-align:center;
 }
+
+.sidebar .button{
+    width: 100%;
+}
 #profile .sidebar .side-nav{
-display:flex;
-align-items:center;
-justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-#profile .sidebar .side-nav ul{
-min-height:50vh;
-width:100%;
-display:flex;
-align-items:left;
-flex-direction:column;
-justify-content:space-around;
+#profile .sidebar .side-nav li{
+    display: inline-block;
+    width: 100%;
 }
-#profile .sidebar .side-nav ul li{
-border-bottom:1px solid grey;
+
+#profile .side-nav ul li{
+    width: 100%;
+    padding: 1em 0em;
 }
-#profile .sidebar .side-nav ul li a{
-color:black;
-margin-left:1em;
+#profile .side-nav a{
+    text-decoration: none;
+    color: var(--secondary);
 }
+#profile .side-nav i{
+    padding: 0em 0.5em;
+}
+
 #profile .mainbar{
 padding:2em;
 min-height: calc(100vh - 3.25rem);

@@ -1,18 +1,19 @@
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.text import slugify
 
-# forms
-from snapserver.forms import PostForm, CustomUserCreationForm, PostCommentForm  # , PostCommentForm
-
 # models
-from api.models import Post
-
-from django.contrib.auth import authenticate, login
-
+from api.models import Post, Following, User
+from snapserver.forms import PostForm, CustomUserCreationForm, PostCommentForm  # , PostCommentForm
 # services
 from . import slicer
+
+
+# forms
 
 
 def home(request):
@@ -28,7 +29,7 @@ def post_create(request):
             post.author = request.user
             post.slug = slugify(post.upload)
             post.save()
-            messages.success(request, "Post saved. Check in the homepage")
+            messages.success(request, "Post saved. Check in the homepage", extra_tags='alert')
             return redirect("/")
     else:
         formset = PostForm()
@@ -63,16 +64,67 @@ def post_detail(request, post_slug):
                    'comment_form': comment_form})
 
 
+# def post_delete(request, post_slug):
+#     # post = get_object_or_404(Post, slug=post_slug)
+#     post = Post.objects.get(slug=post_slug)
+#     print(post)
+#
+#     if request.method == 'DELETE':
+#         if request.user == post.author:
+#             post.delete()
+#             messages.success(request, "post deleted")
+#     return reverse(home)
+
+
 @login_required
-def profile(request):
-    user = request.user
+def profile(request, pk):
+    # user = request.user
+    # posts = user.posts.all()
+    user, _ = User.objects.get_or_create(id=pk)
+    print(user)
     posts = user.posts.all()
+    count = posts.count()
+
+    following = Following.objects.filter(user=user).count()
+    followers = Following.objects.filter(follow=user).count()
+
+    # followers = user.follower.all().count()
+    # following = user.followed.all().count()
+
     name = None
     if not user.first_name or user.first_name == "":
         name = user.email.split("@")[0]
     else:
         name = user.first_name
-    return render(request, 'account/profile.html', {'user': user, 'posts': posts, 'name': name})
+
+    return render(request, 'account/profile.html',
+                  {'user': user, 'posts': posts, 'name': name, "count": count, "followers": followers,
+                   "following": following})
+
+
+@login_required
+def user_following(request):
+    if request.method == "POST":
+        user = request.user
+        to_follow = request.follow
+        following = Following.objects.filter(user=user, follow=to_follow)
+        is_following = True if following else False
+
+        if is_following:
+            Following.delete(following)
+            is_following = False
+            messages.success(request, f"You unfollowed {request.follow.id}")
+
+        else:
+            Following.objects.create(user=user, follow=to_follow)
+            is_following = True
+            messages.success(request, f"You now follow {request.follow.id}")
+
+        resp = {
+            'following': is_following,
+        }
+
+        return render(request, "_partials/follow.html", resp)
 
 
 # signup COMPLETE
@@ -81,14 +133,7 @@ def signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, 'Account created successfully')
-            # user = authenticate(request, username=form['email'], password=form['password'])
-            # if user is not None:
-            #     login(request, user)
-            #     messages.success(request, f"Authenticated as {user.email}")
-            # else:
-            #     messages.info(request, "You can now login with your credentials")
-            #     return redirect("login")
+            messages.success(request, f'Account successfully created for {user.email}', extra_tags='alert')
         return redirect('login')
     else:
         form = CustomUserCreationForm()
@@ -102,11 +147,11 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, f'Welcome back {username}')
+            messages.success(request, f'Welcome back {username}', extra_tags='alert')
             return redirect("/")
         else:
             # Return an 'invalid login' error message.
-            messages.warning(request, f'User {username} Not found')
+            messages.warning(request, f'User {username} Not found', extra_tags='alert')
             return redirect("login")
 
     return render(request, 'account/login.html')

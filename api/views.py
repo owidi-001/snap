@@ -90,7 +90,7 @@ class UserListView(APIView):
 
 class UserDetail(APIView):
     """
-    Retrieve, update or delete a snippet instance.
+    Retrieve, update or delete a user instance.
     """
 
     def get_object(self, pk):

@@ -9,40 +9,45 @@
 <section class="section is-fullheight" id="profile">
     <div class="container-fluid row">
         <div class="sidebar">
-            <div class="profile">
-                <img src="{{request.user.avatar}}" alt="{{name}}">
+            <div class="profile box">
+                <img src="{{ request.user.avatar.url }}" alt="{{name}}">
                 {% if user.first_name and user.last_name %}
                     <h4>{{user.first_name}} {{user.last_name}}</h4>
                 {% else %}
 <!--                TODO-->
 <!--                Add user edit view-->
-                <h4>Your name <a href="#">Edit profile</a></h4>
+                <h4>{{ name}}</h4>
                 {% endif %}
-                <h6>{{user.email}}</h6>
+{#                <h6>{{user.email}}</h6>#}
             </div>
-            <hr>
-            <div class="stats">
+{#            <hr>#}
+            <div class="stats pt-2">
                 <div class="stat">
-                    <h3>123</h3>
+                    <h3>{{ count }}</h3>
                     <span>POSTS</span>
                 </div>
                 <div class="stat">
-                    <h3>123</h3>
+                    <h3>{{ followers }}</h3>
                     <span>FOLLOWERS</span>
                 </div>
                 <div class="stat">
-                    <h3>123</h3>
+                    <h3>{{ following }}</h3>
                     <span>FOLLOWING</span>
                 </div>
             </div>
-            <hr>
-        <div class="side-nav">
-            <ul>
+{#            <hr>#}
+        <div class="box mt-2">
+            {% if request.user.id == user.id %}
+                <a href="#" class="button is-primary">Edit profile</a>
+            {% else %}
+                {% include '_partials/follow.html' %}
+            {% endif %}
+        </div>
+        <div class="box side-nav">
+            <ul class="list">
                 <li><a href="#"> <i class="fa fa-home"></i> Feed </a></li>
-                <li><a href="#"><i class="fa fa-search"></i> Explore</a></li>
                 <li><a href="#"><i class="fa fa-bell"></i> Notifications</a></li>
-                <li><a href="#"><i class="fab fa-telegram"></i> Direct</a></li>
-                <li><a href="#"><i class="fab fa-arrow"></i> Stats</a></li>
+                <li><a href="#"><i class="fa fa-telegram"></i> Messeges</a></li>
             </ul>
         </div>
         </div>

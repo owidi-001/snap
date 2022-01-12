@@ -4,9 +4,9 @@
   {% include '_partials/nav.html'%}
   {%include '_partials/hero.html'%}
   <!-- Edge navs -->
-  <div class="edge is-light">
+  <div class="edge">
     {% if request.user.is_authenticated %}
-    <a href="{% url 'profile'%}"><img src="{{request.user.avatar}}" alt=""></a>
+    <a href="{% url 'profile' request.user.id %}"><img src="{{request.user.avatar.url }}" alt=""></a>
     {% else %}
     <a href="{% url 'login'%}"><i class="fa fa-user"></i></a>
     {% endif %}

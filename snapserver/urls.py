@@ -7,6 +7,7 @@ urlpatterns = [
     # post
     path('', views.home, name='home'),  # VIEW
     path('post_create', views.post_create, name='post_create'),  # CREATE
+    # path('post_delete/<slug:post_slug>', views.post_delete, name='post_delete'),  # DELETE
 
     # post detail
     path('<slug:post_slug>', views.post_detail, name='detail'),  # UPDATE & DELETE
@@ -16,7 +17,8 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('login/', views.login_view, name="login"),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('profile/', views.profile, name='profile'),
+    path('profile/<int:pk>', views.profile, name='profile'),
+    path('user_following/', views.user_following, name='user_following'),
 
     # password management
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
