@@ -106,6 +106,9 @@ class Following(models.Model):
     follow = models.ForeignKey(User, related_name="follow", on_delete=models.CASCADE)
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'follow'], name='user follow')
+        ]
         verbose_name_plural = "Following"
 
     def __str__(self):

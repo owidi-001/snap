@@ -1,15 +1,5 @@
 {% if is_following %}
-    <form method="post">
-        {% csrf_token %}
-{#        <a type="submit" class="button" id="follow" role="button" href="{% url 'follow' user_obj.username %}">Follow</a>#}
-        <button type="submit" class="button is-primary">Follow</button>
-    </form>
-    {% else %}
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="button is-primary">Unfollow</button>
-{#        <a type="submit" class="button" id="follow" role="button" href="{% url 'unfollow' user_obj.username %}">Unfollow</a>#}
-    </form>
+        <a type="submit" class="button is-danger" role="button" href="{% url 'user_following' request.user.id %}">Unfollow</a>
+{% else %}
+    <a type="submit" class="button is-primary" role="button" href="{% url 'user_following' request.user.id %}">Follow</a>
 {% endif %}
-
-{#<a type="submit" class="button" id="follow" role="button" href="{% url 'unfollow' user_obj.username %}">Unfollow</a>#}

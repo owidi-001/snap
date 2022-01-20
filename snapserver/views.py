@@ -64,22 +64,20 @@ def post_detail(request, post_slug):
                    'comment_form': comment_form})
 
 
-# def post_delete(request, post_slug):
-#     # post = get_object_or_404(Post, slug=post_slug)
-#     post = Post.objects.get(slug=post_slug)
-#     print(post)
-#
-#     if request.method == 'DELETE':
-#         if request.user == post.author:
-#             post.delete()
-#             messages.success(request, "post deleted")
-#     return reverse(home)
+def post_delete(request, post_slug):
+    # post = get_object_or_404(Post, slug=post_slug)
+    post = Post.objects.get(slug=post_slug)
+    print(post)
+
+    if request.method == 'DELETE':
+        if request.user == post.author:
+            post.delete()
+            messages.success(request, "post deleted")
+    return reverse(home)
 
 
 @login_required
 def profile(request, pk):
-    # user = request.user
-    # posts = user.posts.all()
     user, _ = User.objects.get_or_create(id=pk)
     print(user)
     posts = user.posts.all()
@@ -87,9 +85,6 @@ def profile(request, pk):
 
     following = Following.objects.filter(user=user).count()
     followers = Following.objects.filter(follow=user).count()
-
-    # followers = user.follower.all().count()
-    # following = user.followed.all().count()
 
     name = None
     if not user.first_name or user.first_name == "":
@@ -103,28 +98,24 @@ def profile(request, pk):
 
 
 @login_required
-def user_following(request):
-    if request.method == "POST":
-        user = request.user
-        to_follow = request.follow
-        following = Following.objects.filter(user=user, follow=to_follow)
-        is_following = True if following else False
+def user_following(request, pk):
+    is_following = None
+    to_follow = User.objects.filter(id=pk)[0]
+    user = request.user
+    print("user", user)
+    print("To follow", to_follow)
+    following = Following.objects.filter(user=user, follow=to_follow)
+    is_following = True if following else False
 
-        if is_following:
-            Following.delete(following)
-            is_following = False
-            messages.success(request, f"You unfollowed {request.follow.id}")
+    if is_following:
+        following.delete()
+        is_following = False
+    else:
+        follow = Following.objects.create(user=user, follow=to_follow)
+        follow.save()
+        is_following = True
 
-        else:
-            Following.objects.create(user=user, follow=to_follow)
-            is_following = True
-            messages.success(request, f"You now follow {request.follow.id}")
-
-        resp = {
-            'following': is_following,
-        }
-
-        return render(request, "_partials/follow.html", resp)
+    return request, is_following
 
 
 # signup COMPLETE
