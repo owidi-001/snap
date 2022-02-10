@@ -9,7 +9,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('', include('snapserver.urls')),
-    # path("api/v1/",include("mpesa_api.urls"))
+
+
 ]
 
 if settings.DEBUG:
