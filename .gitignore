@@ -1,5 +1,8 @@
 /snap/config.py
+/mpesa_api/mpesa_config.py
 .env
+env
+venv
 db.sqlite3
 venv
 api/migrations

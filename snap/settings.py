@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from .secrets import config
+from .config import config
 from django.contrib.messages import constants as messages
 
 # import dj_database_url
@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     # local
     'api.apps.ApiConfig',
     'snapserver',
+
+    # 'mpesa_api.apps.MpesaApiConfig',
 
 ]
 
