@@ -16,7 +16,7 @@ class RegistrationSchema(AutoSchema):
         return manual_fields + extra_fields
 
 
-class UserLoginSchema(AutoSchema):
+class LoginSchema(AutoSchema):
     def get_manual_fields(self, path, method):
         fields = [
             coreapi.Field("email", required=True, location="form"),
@@ -34,6 +34,10 @@ class UserSchema(AutoSchema):
                 coreapi.Field("email", required=False, location="form"),
                 coreapi.Field("phone", required=False, location="form"),
                 coreapi.Field("avatar", required=False, location="form"),
+                coreapi.Field("first_name", required=False, location="form"),
+                coreapi.Field("last_name", required=False, location="form"),
+                coreapi.Field("website", required=False, location="form"),
+                coreapi.Field("biography", required=False, location="form"),
             ]
         manual_fields = super().get_manual_fields(path, method)
         return manual_fields + extra_fields
@@ -53,12 +57,11 @@ class UpdatePasswordSchema(AutoSchema):
         return manual_fields + extra_fields
 
 
-"""
-For resetting password/Forgot password
-"""
-
 
 class ResetPasswordSchema(AutoSchema):
+    """
+    For resetting password/Forgot password
+    """
     def get_manual_fields(self, path, method):
         extra_fields = [
             coreapi.Field("email", required=True, location="form"),

@@ -3,19 +3,19 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-# forms
-from snapserver.forms import UserCreationForm
 # models
-from .models import User, Post
+from .models import Post
 from .post_schema import PostSchema
 # serializers
-from .serializers import PostSerializer, UserSerializer
+from .serializers import PostSerializer
 
 
 class PostList(APIView):
+    """
+    Queries and returns all post objects
+    """
 
-
-    schema=PostSchema()
+    schema = PostSchema()
 
     serializer_class = PostSerializer()
 
@@ -25,7 +25,9 @@ class PostList(APIView):
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
 
-    # Post creates new post
+    """
+    The authenticated user creates a new post
+    """
     def post(self, request, format=None):
 
         data = request.data
@@ -39,11 +41,10 @@ class PostList(APIView):
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({"message":"User not authenticated"})
+            return Response({"message": "User not authenticated"})
 
 
 class PostDetail(APIView):
-
     serializer_class = PostSerializer()
     """
     Retrieve, update or delete a snippet instance.
@@ -62,16 +63,19 @@ class PostDetail(APIView):
 
     def put(self, request, pk, format=None):
         post = self.get_object(pk)
-        serializer = PostSerializer(post, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        if request.user == post.author:
+            serializer = PostSerializer(post, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message':"You're not the owner of this post"},status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         post = self.get_object(pk)
-        if request.user==post.author:
+        if request.user == post.author:
             post.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        else:
-            return Response({"message":"Not permitted"},status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({"message": "Not permitted"}, status=status.HTTP_400_BAD_REQUEST)
