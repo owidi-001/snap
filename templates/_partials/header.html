@@ -6,7 +6,7 @@
   <!-- Edge navs -->
   <div class="edge">
     {% if request.user.is_authenticated %}
-    <a href="{% url 'profile' request.user.id %}"><img src="{{request.user.avatar.url }}" alt=""></a>
+    <a href="{% url 'profile' request.user.id %}" style=""><img src="{{request.user.avatar.url }}" style="max-width: 2em;" alt=""></a>
     {% else %}
     <a href="{% url 'login'%}"><i class="fa fa-user"></i></a>
     {% endif %}

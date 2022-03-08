@@ -7,15 +7,10 @@ from api.models import User, Post
 
 class UserCreationForm(forms.ModelForm):
     email = forms.EmailField(help_text="Email is required")
-    phone_number = forms.CharField(
-        max_length=13, help_text="Phone number is required")
-    username = forms.CharField(
-        max_length=150, help_text="Username is required")
-    is_driver = forms.BooleanField(required=False, help_text="I'm a driver")
 
     class Meta:
         model = User
-        fields = ["email","password"]
+        fields = ["email", "password"]
 
     def clean_email(self):
         email = self.cleaned_data.get("email")

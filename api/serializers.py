@@ -55,6 +55,7 @@ class NewPasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField()
     short_code = serializers.IntegerField()
 
+
 class FollowingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Following

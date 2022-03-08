@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 
 # models
 from .models import Post
-from .post_schema import PostSchema
+from .post_schema import PostSchema, PostCreateSchema
 # serializers
 from .serializers import PostSerializer
 
@@ -25,9 +25,15 @@ class PostList(APIView):
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
 
+
+
+class PostCreateView(APIView):
     """
-    The authenticated user creates a new post
-    """
+        The authenticated user creates a new post
+        """
+    schema = PostCreateSchema()
+    serializer_class = PostSerializer()
+
     def post(self, request, format=None):
 
         data = request.data

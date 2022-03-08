@@ -1,3 +1,5 @@
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
 from django.db import models
@@ -7,6 +9,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.text import slugify
 from django.contrib.auth.base_user import BaseUserManager
 from django.conf import settings
+from rest_framework.authtoken.models import Token
 
 
 def avatar_upload(instance, filename):
@@ -99,6 +102,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email.split("@")[0]
 
+"""
+ generate authentication  token after a user has been created and send him/her an email
+"""
+
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender=None, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
 # followers
 class Following(models.Model):

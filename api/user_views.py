@@ -3,26 +3,23 @@ from threading import Thread
 
 from django.contrib.auth import authenticate
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import Http404
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_encode
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.authtoken.models import Token
-from .token_generator import password_reset_token
 
 # forms
-from .forms import UserCreationForm, UserLoginForm, ResetPasswordForm, UserAvatar
-
+from .forms import UserCreationForm, UserLoginForm, UserAvatar
 # models
 from .models import User
-
 # serializers
 from .send_mail import send_mail
-from .serializers import UserSerializer, PasswordSerializer
+from .serializers import UserSerializer, PasswordSerializer, RegisterSerializer
+from .token_generator import password_reset_token
 from .user_schema import RegistrationSchema, LoginSchema, ResetPasswordSchema
 
 
@@ -43,12 +40,12 @@ class UserDetail(APIView):
     """
 
     def get(self, request, pk, format=None):
-        user=get_object_or_404(User,id=pk)
+        user = get_object_or_404(User, id=pk)
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        user=get_object_or_404(User,id=pk)
+        user = get_object_or_404(User, id=pk)
         serializer = UserSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -56,7 +53,7 @@ class UserDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        user=get_object_or_404(User,id=pk)
+        user = get_object_or_404(User, id=pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -74,7 +71,7 @@ class RegisterView(APIView):
 
         if form.is_valid():
             user = form.save()
-            data = UserSerializer(user).data
+            data = RegisterSerializer(user).data
             # create auth token
             token = Token.objects.get(user=user).key
             data['token'] = token
@@ -86,6 +83,7 @@ class RegisterView(APIView):
             send_mail(message, [email_to], subject)
 
             EmailThead([email_to], message, subject).start()
+            data[f'message':"Account creation for {email_to}"]
 
             return Response(data, status=200)
 
@@ -105,6 +103,8 @@ class LoginView(APIView):
                                 password=form.cleaned_data["password"])
             if user:
                 token = Token.objects.get(user=user).key
+                # token=Token.objects.get_or_create(user=user).key
+                print(token)
                 data = UserSerializer(user).data
                 data["token"] = token
 
@@ -112,7 +112,6 @@ class LoginView(APIView):
             return Response({"errors": ["please provide valid credentials"]},
                             status=400)
         return Response(form.errors, status=400)
-
 
 
 class ResetPasswordView(APIView):
@@ -164,6 +163,7 @@ class ResetPasswordView(APIView):
         for _ in range(6):
             token += "1234567890"[random.randint(0, 9)]
         return int(token)
+
 
 class UserAddAvatar(APIView):
     def patch(self, request):
