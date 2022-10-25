@@ -26,12 +26,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if config.development:
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = config.ALLOWED_HOSTS
+
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -51,8 +49,9 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     # local
-    'api.apps.ApiConfig',
-    'snapserver',
+    'user.apps.UserConfig',
+    'blog.apps.BlogConfig',
+    'comment',
 
     # 'mpesa_api.apps.MpesaApiConfig',
 
@@ -189,7 +188,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 # pass reset
 
-AUTH_USER_MODEL = 'api.User'
+AUTH_USER_MODEL = 'user.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
