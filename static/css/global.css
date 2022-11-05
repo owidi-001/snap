@@ -1,0 +1,71 @@
+/* font import */
+
+/* vars */
+:root {
+    --primary: #FF0000;
+    --text_heading_color: #000000;
+    --text_normal_color: #656565;
+    --text_link_color: #FF0000;
+
+    /* inner property */
+    --padding-x: 0.75rem;
+    --padding-y: 0.375rem;
+    --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-size: 1rem;
+    --font-weight: 400;
+    --line-height: 1.5;
+    --color: #fff;
+    --bg: transparent;
+    --border-width: 1px;
+    --border-color: transparent;
+    --border-radius: 0.375rem;
+    --hover-border-color: transparent;
+    --box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+    --disabled-opacity: 0.65;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+/* global attributes */
+img {
+    width: 100%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text_link_color);
+}
+
+li {
+    list-style: none;
+}
+
+/* global classes */
+.text {
+    color: var(--text_normal_color);
+}
+
+.text_link {
+    color: var(--text_link_color);
+}
+
+.text_title {
+    color: var(--text_heading_color);
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}

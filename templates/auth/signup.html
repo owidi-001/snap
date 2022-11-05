@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth-form.css' %}">
+</head>
+
+<body class="auth">
+    <!-- svg display -->
+    <div class="svg_left">
+        <img src="{% static 'res/svg_left.svg' %}" alt="">
+    </div>
+    <div class="svg_right">
+        <img src="{% static 'res/svg_right.svg' %}" alt="">
+    </div>
+
+    <!-- form -->
+    <div class="container flex">
+        <div class="form">
+            <form action=".">
+                <legend class="title">
+                    Sign up
+                </legend>
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="email-input">Email</label>
+                        <input type="email" name="email" id="email-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="password-input">Password</label>
+                        <input type="password" name="password" id="password-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="password-confirm">Confirm Password</label>
+                        <input type="password" name="password_conf" id="password-confirm">
+                    </div>
+                    <div class="form-group flex">
+                        <button type="submit" class="form_btn">Sign Up</button>
+                    </div>
+                    <div class="form-group">
+                        <p class="text">Already have an account? <a href="login.html">login</a></p>
+                    </div>
+                    <div class="form-group before after">
+                        <p class="text">Or sign up with</p>
+                    </div>
+                    <div class="form-group auth-with flex">
+                        <a class="flex" href="#"><img src="{% static 'res/google_icons.svg' %}" alt="">
+                            <p class="text"> Sign up with Google</p>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

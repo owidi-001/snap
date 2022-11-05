@@ -1,5 +1,0 @@
-{% if is_following %}
-        <a type="submit" class="button is-danger" role="button" href="{% url 'user_following' request.user.id %}">Unfollow</a>
-{% else %}
-    <a type="submit" class="button is-primary" role="button" href="{% url 'user_following' request.user.id %}">Follow</a>
-{% endif %}

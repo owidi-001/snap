@@ -1,10 +1,13 @@
 import random
 
 from django.contrib.auth import authenticate
+from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from rest_framework import status
+from rest_framework.permissions import AllowAny
+from rest_framework.renderers import TemplateHTMLRenderer, StaticHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -23,6 +26,7 @@ class RegisterView(APIView):
         The form is checked for validity and user saved if valid otherwise relevant exception is thrown.
         """
     schema = RegistrationSchema()
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
@@ -39,6 +43,11 @@ class LoginView(APIView):
     User logs in with the required credentials
     """
     schema = LoginSchema()
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'auth/login.html'
+
+    def get(self, request):
+        return Response({'messages': "Nothing"})
 
     def post(self, request):
 
@@ -56,6 +65,12 @@ class UpdateUserView(APIView):
     """
     Updates user credentials
     """
+
+    renderer_classes = [StaticHTMLRenderer,TemplateHTMLRenderer]
+    template_name = 'auth/signup.html'
+
+    def get(self, request):
+        return render(request, template_name=self.template_name)
 
     def put(self, request):
         user = request.user
