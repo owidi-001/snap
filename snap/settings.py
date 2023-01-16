@@ -26,12 +26,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if config.development:
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = config.ALLOWED_HOSTS
+
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -51,8 +49,8 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     # local
-    'api.apps.ApiConfig',
-    'snapserver',
+    # 'api.apps.ApiConfig',
+    # 'snapserver',
 
     # 'mpesa_api.apps.MpesaApiConfig',
 
@@ -102,31 +100,24 @@ WSGI_APPLICATION = 'snap.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if config.DEVELOPMENT:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
-
-# if config.development:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': config.ENGINE,
-#             'NAME': config.NAME,
-#             'USER': config.USER,
-#             'PASSWORD': config.PASSWORD,
-#             'HOST': config.HOST,
-#             'PORT': config.PORT
-#         }
-#     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': config.ENGINE,
+            'NAME': config.NAME,
+            'USER': config.USER,
+            'PASSWORD': config.PASSWORD,
+            'HOST': config.HOST,
+            'PORT': config.PORT
+        }
+    }
 
 
 # db_from_env = dj_database_url.config(conn_max_age=500)
