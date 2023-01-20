@@ -2,8 +2,8 @@
 from django.core.exceptions import ValidationError
 from django import forms
 
-from api.forms_validator import email_validator
-from api.models import User 
+from .validator import email_validator
+from .models import User 
 
 class UserCreationForm(forms.ModelForm):
     email = forms.EmailField(help_text="Email is required")

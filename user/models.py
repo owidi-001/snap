@@ -53,12 +53,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
-    def count_followers(self):
-        return self.user_followers.count()
-
-    def count_following(self):
-        return User.objects.filter(user_followers=self).count()
-
     @property
     def is_staff(self):
         """Is the user a member of staff?"""

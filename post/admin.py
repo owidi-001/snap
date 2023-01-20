@@ -12,4 +12,4 @@ class PostAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(PostAdmin,Post)
+admin.site.register(Post,PostAdmin)

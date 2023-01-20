@@ -3,10 +3,9 @@ from rest_framework import serializers
 from .models import Post
 
 
-class PostSerializer(serializers.HyperlinkedModelSerializer):
-    # comments = CommentSerializer()
+class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'url', 'upload', 'caption', 'author', 'date_posted', 'comment']  # use with hyperlinked model
+        fields = ['id','upload', 'caption', 'author', 'date_posted']
         

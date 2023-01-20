@@ -72,6 +72,7 @@ class RegisterView(APIView):
         if form.is_valid():
             user = form.save()
             data = RegisterSerializer(user).data
+            print(data)
             # create auth token
             token = Token.objects.get(user=user).key
             data['token'] = token
@@ -83,6 +84,7 @@ class RegisterView(APIView):
             send_mail(message, [email_to], subject)
 
             EmailThead([email_to], message, subject).start()
+
             data[f'message':"Account creation for {email_to}"]
 
             return Response(data, status=200)

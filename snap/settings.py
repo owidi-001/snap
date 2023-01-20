@@ -49,10 +49,11 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     # local
-    # 'api.apps.ApiConfig',
-    # 'snapserver',
+    "user",
+    "post",
+    "comment",
+    "follow"
 
-    # 'mpesa_api.apps.MpesaApiConfig',
 
 ]
 
@@ -180,7 +181,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 # pass reset
 
-AUTH_USER_MODEL = 'api.User'
+AUTH_USER_MODEL = 'user.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
