@@ -9,7 +9,7 @@ from .models import Comment
 
 # Create your views here.
 
-class CommentDetail(APIView):
+class CommentView(APIView):
     serializer_class = CommentSerializer()
     """
     Retrieve, update or delete a snippet instance.

@@ -1,37 +1,39 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.views import APIView
-
-
-
+from django.http import Http404
 from .serializers import FollowSerializer
+from user.models import User
+
+from user.serializers import UserSerializer
 
 from .models import Follow
 
-# Create your views here.
+
 class FollowView(APIView):
+    # TODO! Redo this
+    def get_instance(self,request,pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
     def get(self,request):
-        user=request.user
-        followers=Follow.objects.filter(followed=user)
+        context={
+            "followers":UserSerializer(Follow.objects.filter(user=request.user),many=True).data,
+            "following":UserSerializer(Follow.objects.filter(follower=request.user),many=True).data
+        }
+        return Response(context,status=status.Http_200_OK)
 
-        serializer=FollowSerializer(followers,many=True)
+    def post(self,request,pk):
+        follower=User.objects.filter(pk=pk)[0]
+        follow=self.get_instance(pk)
 
-        return Response(serializer.data,status=status.HTTP_200_OK)
+        serializer=FollowSerializer(follow)
+        return Response(status=status.HTTP_201_CREATED)
 
-    def post(self,request):
-        user=request.user
-        # Get user to follow
-
-        # Create new follow
-
-    def delete(self):
-        user=request.user
-
-        # Get user follow instance
-
-        # if follow instance exists, remove
-        
+    def patch(self,request,pk):
+        user=self.get_instance(pk)
 
 
 
