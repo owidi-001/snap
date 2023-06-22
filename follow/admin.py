@@ -5,8 +5,8 @@ from .models import Follow
 # Register your models here.
 class FollowAdmin(admin.ModelAdmin):
     list_display=[
-        "followed","follower"
+        "user","follower"
     ]
-    list_filter=["followed","follower"]
+    list_filter=["user","follower"]
 
 admin.site.register(Follow,FollowAdmin)
